@@ -36,7 +36,7 @@ option go_package = "github.com/tupe12334/ameliso/generated;ameliso";
 //   ListRuns      — RunMeta.passed/failed/blocked/skipped/total counts per run
 //   RecordResult  — pending field (remaining cases after this result)
 //   GetRepoStatus — last_completed_run (RunMeta with counts)
-//   UpdateRun     — add_cases to extend run scope; commit_sha/tester/environment patches
+//   UpdateRun     — add_cases to extend run scope; commit_sha/testers/environment patches
 //   GetAffectedCases — cases (body + latest_status) + uncovered_files (coverage gaps)
 //
 // For richer context before running (stats, active runs), call GetRepoStatus first.
@@ -79,6 +79,10 @@ service AmelisoService {
   rpc GetAffectedCases(GetAffectedCasesRequest) returns (GetAffectedCasesResponse);
   // Aggregate snapshot: case counts by priority, coverage counts, suite/run totals, active runs with pending counts.
   rpc GetRepoStatus(GetRepoStatusRequest) returns (GetRepoStatusResponse);
+
+  // --- Testers ---
+  // Returns suggested tester names from run history and GitHub contributors.
+  rpc GetTesterSuggestions(GetTesterSuggestionsRequest) returns (GetTesterSuggestionsResponse);
 
   // --- GitHub App ---
   rpc GetGitHubInstallUrl(GetGitHubInstallUrlRequest) returns (GetGitHubInstallUrlResponse);
@@ -293,7 +297,7 @@ message CreateRunRequest {
   // Human-readable slug appended to the date prefix to form run_id (e.g. "smoke").
   // When empty, the server auto-generates a unique slug from the current timestamp.
   string slug = 2;
-  string tester = 3;
+  repeated string testers = 3;
   string environment = 4;
   string suite = 5;
   // Optional inline case list — when set, the run is scoped to these cases without
@@ -429,9 +433,9 @@ message UpdateRunRequest {
   // The resulting new run_id will be "{date_prefix}-{new_slug}".
   string new_slug = 3;
   // Optional metadata updates — only applied when the field is non-empty.
-  // Use these to patch commit_sha, tester, or environment after creation.
+  // Use these to patch commit_sha, testers, or environment after creation.
   optional string commit_sha = 4;
-  optional string tester = 5;
+  repeated string testers = 5;
   optional string environment = 6;
   // Extend the run's inline case scope with these additional case paths.
   // Only valid for inline-scoped runs (created with use_last_run, since_ref, changed_files, or cases).
@@ -489,7 +493,7 @@ message GetRepoStatusRequest {
 
 message ActiveRunStatus {
   string run_id = 1;
-  string tester = 2;
+  repeated string testers = 2;
   string suite = 3;
   string date = 4;
   int32 pending_cases = 5;
@@ -514,6 +518,16 @@ message GetRepoStatusResponse {
   // Most recently completed run — commit_sha can be passed as since_ref to GetAffectedCases
   // without a separate ListRuns call.
   RunMeta last_completed_run = 13;
+}
+
+// --- Testers ---
+
+message GetTesterSuggestionsRequest {
+  string repo_id = 1;
+}
+
+message GetTesterSuggestionsResponse {
+  repeated string suggestions = 1;
 }
 
 // --- GitHub App ---

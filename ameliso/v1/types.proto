@@ -27,7 +27,7 @@ message Suite {
 message RunMeta {
   string id = 1;
   string date = 2;
-  string tester = 3;
+  repeated string testers = 3;
   RunStatus status = 4;
   string environment = 5;
   string suite = 6;
