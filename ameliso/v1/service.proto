@@ -94,6 +94,8 @@ service AmelisoService {
   rpc ListRepositories(ListRepositoriesRequest) returns (ListRepositoriesResponse);
   rpc SyncRepository(SyncRepositoryRequest) returns (SyncRepositoryResponse);
   rpc RemoveRepository(RemoveRepositoryRequest) returns (RemoveRepositoryResponse);
+  // Generate a new API key for the given repository (rotates any existing key).
+  rpc RotateRepoApiKey(RotateRepoApiKeyRequest) returns (RotateRepoApiKeyResponse);
 }
 
 // --- Cases ---
@@ -631,3 +633,11 @@ message RemoveRepositoryRequest {
 }
 
 message RemoveRepositoryResponse {}
+
+message RotateRepoApiKeyRequest {
+  string repo_id = 1;
+}
+
+message RotateRepoApiKeyResponse {
+  string api_key = 1;
+}
