@@ -52,6 +52,7 @@ service AmelisoService {
   rpc BulkUpdateCases(BulkUpdateCasesRequest) returns (BulkUpdateCasesResponse);
   rpc DeleteCase(DeleteCaseRequest) returns (DeleteCaseResponse);
   rpc BulkDeleteCases(BulkDeleteCasesRequest) returns (BulkDeleteCasesResponse);
+  rpc RestoreCase(RestoreCaseRequest) returns (RestoreCaseResponse);
 
   // --- Suites ---
   rpc ListSuites(ListSuitesRequest) returns (ListSuitesResponse);
@@ -59,6 +60,7 @@ service AmelisoService {
   rpc CreateSuite(CreateSuiteRequest) returns (CreateSuiteResponse);
   rpc UpdateSuite(UpdateSuiteRequest) returns (UpdateSuiteResponse);
   rpc DeleteSuite(DeleteSuiteRequest) returns (DeleteSuiteResponse);
+  rpc RestoreSuite(RestoreSuiteRequest) returns (RestoreSuiteResponse);
 
   // --- Runs ---
   rpc ListRuns(ListRunsRequest) returns (ListRunsResponse);
@@ -68,6 +70,7 @@ service AmelisoService {
   rpc BulkRecordResults(BulkRecordResultsRequest) returns (BulkRecordResultsResponse);
   rpc FinalizeRun(FinalizeRunRequest) returns (FinalizeRunResponse);
   rpc DeleteRun(DeleteRunRequest) returns (DeleteRunResponse);
+  rpc RestoreRun(RestoreRunRequest) returns (RestoreRunResponse);
   rpc GetPendingCases(GetPendingCasesRequest) returns (GetPendingCasesResponse);
   // Rename a run's slug (date prefix is preserved). Returns the updated run metadata.
   rpc UpdateRun(UpdateRunRequest) returns (UpdateRunResponse);
@@ -243,6 +246,13 @@ message BulkDeleteCasesResponse {
   repeated string file_paths = 1;
 }
 
+message RestoreCaseRequest {
+  string repo_id = 1;
+  string case_path = 2;
+}
+
+message RestoreCaseResponse {}
+
 // --- Suites ---
 
 message ListSuitesRequest {
@@ -304,6 +314,13 @@ message DeleteSuiteRequest {
 message DeleteSuiteResponse {
   string file_path = 1;
 }
+
+message RestoreSuiteRequest {
+  string repo_id = 1;
+  string slug = 2;
+}
+
+message RestoreSuiteResponse {}
 
 // --- Runs ---
 
@@ -438,6 +455,13 @@ message DeleteRunRequest {
 message DeleteRunResponse {
   string dir_path = 1;
 }
+
+message RestoreRunRequest {
+  string repo_id = 1;
+  string run_id = 2;
+}
+
+message RestoreRunResponse {}
 
 message GetPendingCasesRequest {
   string repo_id = 1;
