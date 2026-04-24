@@ -62,6 +62,8 @@ message CoverageEntry {
   string last_run_date = 4;
   // Deprecated: use case.body instead (Case.body is now always populated).
   string body = 5;
+  // 0.0 = never flaky, 1.0 = status changes every run. Only set when ≥2 results exist.
+  float flakiness_score = 6;
 }
 
 message AffectedCase {
