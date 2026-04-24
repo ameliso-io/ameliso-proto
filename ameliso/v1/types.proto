@@ -48,6 +48,7 @@ message CaseResult {
   string case_path = 1;
   ResultStatus status = 2;
   string notes = 3;
+  string body_snapshot = 4;
 }
 
 message Run {
