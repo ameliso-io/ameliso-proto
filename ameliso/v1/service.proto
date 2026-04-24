@@ -264,6 +264,8 @@ message ListSuitesRequest {
   // 0 = return all (default, backward-compatible)
   int32 page_size = 2;
   string page_token = 3;
+  // Optional free-text search against slug and name.
+  string query = 4;
 }
 
 message ListSuitesResponse {
@@ -334,6 +336,8 @@ message ListRunsRequest {
   // 0 = return all (default, backward-compatible)
   int32 page_size = 3;
   string page_token = 4;
+  // Optional free-text search against run_id, suite, and environment.
+  string query = 5;
 }
 
 message ListRunsResponse {
