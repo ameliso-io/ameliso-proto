@@ -100,10 +100,16 @@ message ListCasesRequest {
   Priority priority = 3;
   string query = 4;
   string suite = 5;
+  // 0 = return all (default, backward-compatible)
+  int32 page_size = 6;
+  string page_token = 7;
 }
 
 message ListCasesResponse {
   repeated Case cases = 1;
+  // Empty when no more pages.
+  string next_page_token = 2;
+  int32 total_count = 3;
 }
 
 message GetCaseRequest {
@@ -216,10 +222,15 @@ message BulkDeleteCasesResponse {
 
 message ListSuitesRequest {
   string repo_id = 1;
+  // 0 = return all (default, backward-compatible)
+  int32 page_size = 2;
+  string page_token = 3;
 }
 
 message ListSuitesResponse {
   repeated Suite suites = 1;
+  string next_page_token = 2;
+  int32 total_count = 3;
 }
 
 message GetSuiteRequest {
@@ -274,10 +285,15 @@ message DeleteSuiteResponse {
 message ListRunsRequest {
   string repo_id = 1;
   RunStatus status = 2;
+  // 0 = return all (default, backward-compatible)
+  int32 page_size = 3;
+  string page_token = 4;
 }
 
 message ListRunsResponse {
   repeated RunMeta runs = 1;
+  string next_page_token = 2;
+  int32 total_count = 3;
 }
 
 message GetRunRequest {
