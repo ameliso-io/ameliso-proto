@@ -50,6 +50,10 @@ message CaseResult {
   string notes = 3;
   // Snapshot of case body (markdown) at time of result recording.
   string body_snapshot = 4;
+  // Execution time in milliseconds. 0 means not recorded.
+  int64 duration_ms = 5;
+  // Free-form failure category (e.g. "assertion", "timeout", "crash"). Empty when not set.
+  string error_type = 6;
 }
 
 message Run {

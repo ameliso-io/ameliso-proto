@@ -408,6 +408,10 @@ message RecordResultRequest {
   string case_path = 3;
   ResultStatus status = 4;
   string notes = 5;
+  // Execution time in milliseconds. 0 means not recorded.
+  int64 duration_ms = 6;
+  // Free-form failure category (e.g. "assertion", "timeout", "crash"). Empty when not set.
+  string error_type = 7;
 }
 
 message RecordResultResponse {
@@ -423,6 +427,10 @@ message BulkResultEntry {
   string case_path = 1;
   ResultStatus status = 2;
   string notes = 3;
+  // Execution time in milliseconds. 0 means not recorded.
+  int64 duration_ms = 4;
+  // Free-form failure category (e.g. "assertion", "timeout", "crash"). Empty when not set.
+  string error_type = 5;
 }
 
 message BulkRecordResultsRequest {
