@@ -101,6 +101,14 @@ enum Priority {
 }
 
 // A GitHub repository connected via the GitHub App installation.
+message AuditEntry {
+  int64 id = 1;
+  string action = 2;        // "delete"
+  string resource_type = 3; // "case", "run", "suite"
+  string resource_id = 4;   // case_path, run_id, or slug
+  string created_at = 5;    // ISO-8601 timestamp
+}
+
 message Repository {
   string id = 1;              // "owner/repo"
   string name = 2;            // "repo"
