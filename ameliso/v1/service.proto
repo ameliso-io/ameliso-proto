@@ -98,6 +98,14 @@ service AmelisoService {
   rpc RotateRepoApiKey(RotateRepoApiKeyRequest) returns (RotateRepoApiKeyResponse);
   // Append-only log of destructive actions (delete case/run/suite).
   rpc ListAuditLog(ListAuditLogRequest) returns (ListAuditLogResponse);
+
+  // --- Testing Strategies ---
+  rpc ListStrategies(ListStrategiesRequest) returns (ListStrategiesResponse);
+  rpc GetStrategy(GetStrategyRequest) returns (GetStrategyResponse);
+  rpc CreateStrategy(CreateStrategyRequest) returns (CreateStrategyResponse);
+  rpc UpdateStrategy(UpdateStrategyRequest) returns (UpdateStrategyResponse);
+  rpc DeleteStrategy(DeleteStrategyRequest) returns (DeleteStrategyResponse);
+  rpc RestoreStrategy(RestoreStrategyRequest) returns (RestoreStrategyResponse);
 }
 
 // --- Cases ---
@@ -214,6 +222,9 @@ message UpdateCaseRequest {
   // When non-empty, rename the case to this path. Must be unique within the repo.
   // Also updates any suites that reference the old path.
   string new_path = 8;
+  // When non-empty, set the case's linked strategy IDs to exactly this list.
+  // If empty (proto3 default), strategies are left unchanged.
+  repeated string strategy_ids = 9;
 }
 
 message UpdateCaseResponse {
@@ -615,6 +626,7 @@ message GetRepoStatusResponse {
   // Most recently completed run — commit_sha can be passed as since_ref to GetAffectedCases
   // without a separate ListRuns call.
   RunMeta last_completed_run = 13;
+  int32 strategy_count = 14;
 }
 
 // --- Testers ---
@@ -687,3 +699,31 @@ message ListAuditLogResponse {
   repeated AuditEntry entries = 1;
   string next_page_token = 2;
 }
+
+// --- Testing Strategies ---
+
+message ListStrategiesRequest { string repo_id = 1; }
+message ListStrategiesResponse { repeated TestingStrategy strategies = 1; }
+message GetStrategyRequest { string repo_id = 1; string strategy_id = 2; }
+message GetStrategyResponse { TestingStrategy strategy = 1; }
+message CreateStrategyRequest {
+  string repo_id = 1;
+  string strategy_id = 2;
+  string name = 3;
+  string description = 4;
+  repeated string tags = 5;
+}
+message CreateStrategyResponse { TestingStrategy strategy = 1; }
+message UpdateStrategyRequest {
+  string repo_id = 1;
+  string strategy_id = 2;
+  string name = 3;
+  string description = 4;
+  repeated string tags = 5;
+  string new_id = 6;
+}
+message UpdateStrategyResponse { TestingStrategy strategy = 1; }
+message DeleteStrategyRequest { string repo_id = 1; string strategy_id = 2; }
+message DeleteStrategyResponse {}
+message RestoreStrategyRequest { string repo_id = 1; string strategy_id = 2; }
+message RestoreStrategyResponse {}

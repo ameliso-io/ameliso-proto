@@ -15,6 +15,18 @@ message Case {
   // Markdown body — the actual test procedure/steps. Populated when the caller
   // needs full case content (e.g. ListCases, GetCase, GetPendingCases).
   string body = 8;
+  // IDs of testing strategies linked to this case.
+  repeated string strategy_ids = 9;
+}
+
+message TestingStrategy {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  repeated string tags = 4;
+  string created_at = 5;
+  string updated_at = 6;
+  string deleted_at = 7;
 }
 
 message Suite {
