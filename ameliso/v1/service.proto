@@ -706,7 +706,12 @@ message RotateRepoApiKeyResponse {
 
 message ListRepoTokensRequest { string repo_id = 1; }
 message ListRepoTokensResponse { repeated RepoToken tokens = 1; }
-message CreateRepoTokenRequest { string repo_id = 1; string name = 2; string role = 3; }
+message CreateRepoTokenRequest {
+  string repo_id = 1;
+  string name = 2;
+  string role = 3;
+  optional int32 expires_in_days = 4;  // if absent or 0 = never expires
+}
 message CreateRepoTokenResponse { RepoToken token = 1; }
 message DeleteRepoTokenRequest { string repo_id = 1; string token = 2; }
 message DeleteRepoTokenResponse {}

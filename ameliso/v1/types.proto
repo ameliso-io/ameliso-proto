@@ -39,6 +39,7 @@ message RepoToken {
   string name = 2;
   string role = 3;
   string created_at = 4;
+  string expires_at = 5;  // ISO-8601 UTC, empty = never expires
 }
 
 message Suite {
