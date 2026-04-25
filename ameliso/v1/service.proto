@@ -630,6 +630,13 @@ message ActiveRunStatus {
   string environment = 8;
 }
 
+message SuiteCoverageSummary {
+  string slug = 1;
+  int32 total_cases = 2;
+  int32 covered_cases = 3;
+  int32 coverage_pct = 4;
+}
+
 message GetRepoStatusResponse {
   int32 total_cases = 1;
   int32 high_cases = 2;
