@@ -653,6 +653,8 @@ message GetRepoStatusResponse {
   uint32 sync_failure_count = 16;
   // Error message from the most recent failed GitHub sync, empty if none.
   string last_sync_error = 17;
+  // Per-suite coverage breakdown, sorted by slug.
+  repeated SuiteCoverageSummary suite_coverage = 18;
 }
 
 // --- Testers ---

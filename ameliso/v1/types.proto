@@ -151,3 +151,10 @@ message Repository {
   string added_at = 8;
   string api_key = 9;
 }
+
+message SuiteCoverageSummary {
+  string slug = 1;
+  int32 total_cases = 2;
+  int32 covered_cases = 3;
+  int32 coverage_pct = 4;
+}
