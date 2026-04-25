@@ -649,9 +649,9 @@ message GetRepoStatusResponse {
   int32 strategy_count = 14;
   // Last 10 distinct non-empty environment values, most recent first.
   repeated string recent_environments = 15;
-  // Number of GitHub sync failures since the server started.
+  // Number of consecutive GitHub sync failures for this repo since last success.
   uint32 sync_failure_count = 16;
-  // The most recent GitHub sync error message, or empty if none.
+  // Error message from the most recent failed GitHub sync, empty if none.
   string last_sync_error = 17;
 }
 
