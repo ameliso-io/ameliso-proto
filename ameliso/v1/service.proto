@@ -723,8 +723,15 @@ message ListStrategiesRequest {
   string repo_id = 1;
   // Optional free-text search against strategy name (case-insensitive substring match).
   string query = 2;
+  // 0 = return all (default, backward-compatible)
+  int32 page_size = 3;
+  string page_token = 4;
 }
-message ListStrategiesResponse { repeated TestingStrategy strategies = 1; }
+message ListStrategiesResponse {
+  repeated TestingStrategy strategies = 1;
+  string next_page_token = 2;
+  int32 total_count = 3;
+}
 message GetStrategyRequest { string repo_id = 1; string strategy_id = 2; }
 message GetStrategyResponse { TestingStrategy strategy = 1; }
 message CreateStrategyRequest {
