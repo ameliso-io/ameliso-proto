@@ -66,6 +66,7 @@ message RunMeta {
   int32 blocked = 10;
   int32 skipped = 11;
   int32 total = 12;
+  string description = 13;
 }
 
 message CaseResult {
