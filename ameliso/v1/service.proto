@@ -718,7 +718,11 @@ message ListAuditLogResponse {
 
 // --- Testing Strategies ---
 
-message ListStrategiesRequest { string repo_id = 1; }
+message ListStrategiesRequest {
+  string repo_id = 1;
+  // Optional free-text search against strategy name (case-insensitive substring match).
+  string query = 2;
+}
 message ListStrategiesResponse { repeated TestingStrategy strategies = 1; }
 message GetStrategyRequest { string repo_id = 1; string strategy_id = 2; }
 message GetStrategyResponse { TestingStrategy strategy = 1; }
