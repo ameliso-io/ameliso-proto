@@ -137,3 +137,10 @@ message Repository {
   string added_at = 8;
   string api_key = 9;
 }
+
+message RepoToken {
+  string token = 1;
+  string name = 2;
+  string role = 3;
+  string created_at = 4;
+}

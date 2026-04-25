@@ -96,6 +96,10 @@ service AmelisoService {
   rpc RemoveRepository(RemoveRepositoryRequest) returns (RemoveRepositoryResponse);
   // Generate a new API key for the given repository (rotates any existing key).
   rpc RotateRepoApiKey(RotateRepoApiKeyRequest) returns (RotateRepoApiKeyResponse);
+  rpc ListRepoTokens(ListRepoTokensRequest) returns (ListRepoTokensResponse);
+  rpc CreateRepoToken(CreateRepoTokenRequest) returns (CreateRepoTokenResponse);
+  rpc DeleteRepoToken(DeleteRepoTokenRequest) returns (DeleteRepoTokenResponse);
+  rpc UpdateRepoToken(UpdateRepoTokenRequest) returns (UpdateRepoTokenResponse);
   // Append-only log of destructive actions (delete case/run/suite).
   rpc ListAuditLog(ListAuditLogRequest) returns (ListAuditLogResponse);
 
@@ -683,6 +687,15 @@ message RotateRepoApiKeyRequest {
 message RotateRepoApiKeyResponse {
   string api_key = 1;
 }
+
+message ListRepoTokensRequest { string repo_id = 1; }
+message ListRepoTokensResponse { repeated RepoToken tokens = 1; }
+message CreateRepoTokenRequest { string repo_id = 1; string name = 2; string role = 3; }
+message CreateRepoTokenResponse { RepoToken token = 1; }
+message DeleteRepoTokenRequest { string repo_id = 1; string token = 2; }
+message DeleteRepoTokenResponse {}
+message UpdateRepoTokenRequest { string repo_id = 1; string token = 2; string role = 3; }
+message UpdateRepoTokenResponse { RepoToken token = 1; }
 
 message ListAuditLogRequest {
   string repo_id = 1;
