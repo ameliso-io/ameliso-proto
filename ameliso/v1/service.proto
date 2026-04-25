@@ -83,6 +83,8 @@ service AmelisoService {
   rpc GetAffectedCases(GetAffectedCasesRequest) returns (GetAffectedCasesResponse);
   // Aggregate snapshot: case counts by priority, coverage counts, suite/run totals, active runs with pending counts.
   rpc GetRepoStatus(GetRepoStatusRequest) returns (GetRepoStatusResponse);
+  // Structured diff between two runs: regressions, fixes, new/removed cases, unchanged count.
+  rpc CompareRuns(CompareRunsRequest) returns (CompareRunsResponse);
 
   // --- Testers ---
   // Returns suggested tester names from run history and GitHub contributors.
@@ -657,6 +659,31 @@ message GetRepoStatusResponse {
   repeated SuiteCoverageSummary suite_coverage = 18;
   // Cases with ≥1 pass/fail flip across their recorded runs, sorted by flip_count desc.
   repeated FlakyCaseSummary flaky_cases = 19;
+}
+
+message CompareRunsRequest {
+  string repo_id = 1;
+  string run_id_a = 2;
+  string run_id_b = 3;
+}
+
+message RunCaseDiff {
+  string case_path = 1;
+  string old_status = 2;
+  string new_status = 3;
+}
+
+message CompareRunsResponse {
+  // Cases that worsened (pass/skipped → fail/blocked).
+  repeated RunCaseDiff regressions = 1;
+  // Cases that improved (fail/blocked → pass).
+  repeated RunCaseDiff fixes = 2;
+  // Cases present in run_id_b but not run_id_a.
+  repeated string new_cases = 3;
+  // Cases present in run_id_a but not run_id_b.
+  repeated string removed_cases = 4;
+  // Cases whose status did not change between the two runs.
+  int32 unchanged_count = 5;
 }
 
 // --- Testers ---
