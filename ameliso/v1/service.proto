@@ -540,6 +540,12 @@ message UpdateRunResponse {
 message GetCoverageReportRequest {
   string repo_id = 1;
   ResultStatus status_filter = 2;
+  // When non-empty, filter entries to those whose case_path or title contains this string (case-insensitive).
+  string search = 3;
+  // When set (non-UNSPECIFIED), only return entries whose case priority matches.
+  Priority priority_filter = 4;
+  // When true, only return entries with a flakiness_score > 0.
+  bool flaky_only = 5;
 }
 
 message GetCoverageReportResponse {
