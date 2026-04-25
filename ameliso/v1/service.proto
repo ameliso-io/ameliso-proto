@@ -413,6 +413,7 @@ message CreateRunRequest {
   // or it has no commit_sha, all cases are included.
   // Mutually exclusive with `suite`, `cases`, `since_ref`, and `changed_files`.
   bool use_last_run = 10;
+  // Optional free-text description for retrospective context (e.g. "Pre-release smoke test for v2.3").
   string description = 11;
 }
 
@@ -561,6 +562,7 @@ message UpdateRunRequest {
   // Idempotent — already-included case paths are ignored.
   // Use this after BulkCreateCases to add newly-created cases to an in-progress run.
   repeated string add_cases = 7;
+  // Optional free-text description update. When set, replaces the existing description.
   optional string description = 8;
 }
 
