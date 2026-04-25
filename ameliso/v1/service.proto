@@ -177,6 +177,7 @@ message CreateCaseRequest {
   repeated string tags = 5;
   Priority priority = 6;
   string body = 7;
+  repeated string strategy_ids = 8;
 }
 
 message CreateCaseResponse {
