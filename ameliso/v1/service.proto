@@ -668,6 +668,11 @@ message ListAuditLogRequest {
   string repo_id = 1;
   int32 page_size = 2;
   string page_token = 3;
+  string resource_type = 4;
+  string resource_id = 5;
+  string action = 6;
+  string since = 7;
+  string until = 8;
 }
 
 message ListAuditLogResponse {
