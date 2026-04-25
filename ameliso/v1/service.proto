@@ -110,6 +110,9 @@ service AmelisoService {
   rpc UpdateStrategy(UpdateStrategyRequest) returns (UpdateStrategyResponse);
   rpc DeleteStrategy(DeleteStrategyRequest) returns (DeleteStrategyResponse);
   rpc RestoreStrategy(RestoreStrategyRequest) returns (RestoreStrategyResponse);
+  rpc ListPermissions(ListPermissionsRequest) returns (ListPermissionsResponse);
+  rpc AddPermission(AddPermissionRequest) returns (AddPermissionResponse);
+  rpc RemovePermission(RemovePermissionRequest) returns (RemovePermissionResponse);
 }
 
 // --- Cases ---
@@ -740,3 +743,19 @@ message DeleteStrategyRequest { string repo_id = 1; string strategy_id = 2; }
 message DeleteStrategyResponse {}
 message RestoreStrategyRequest { string repo_id = 1; string strategy_id = 2; }
 message RestoreStrategyResponse {}
+
+// --- Permissions ---
+
+message ListPermissionsRequest { string repo_id = 1; }
+message ListPermissionsResponse { repeated RepoPermission permissions = 1; }
+message AddPermissionRequest {
+  string repo_id = 1;
+  string name = 2;
+  string role = 3;
+}
+message AddPermissionResponse {
+  RepoPermission permission = 1;
+  string token = 2;
+}
+message RemovePermissionRequest { string repo_id = 1; string name = 2; }
+message RemovePermissionResponse {}
