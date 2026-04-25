@@ -158,3 +158,9 @@ message SuiteCoverageSummary {
   int32 covered_cases = 3;
   int32 coverage_pct = 4;
 }
+
+message FlakyCaseSummary {
+  string case_path = 1;
+  int32 flip_count = 2;
+  string last_flip_sha = 3;
+}

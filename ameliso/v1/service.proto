@@ -655,6 +655,8 @@ message GetRepoStatusResponse {
   string last_sync_error = 17;
   // Per-suite coverage breakdown, sorted by slug.
   repeated SuiteCoverageSummary suite_coverage = 18;
+  // Cases with ≥1 pass/fail flip across their recorded runs, sorted by flip_count desc.
+  repeated FlakyCaseSummary flaky_cases = 19;
 }
 
 // --- Testers ---
