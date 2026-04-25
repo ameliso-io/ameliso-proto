@@ -195,6 +195,8 @@ message BulkCreateCasesResponse {
   // Updated pending entries for the run, when run_id was set in the request.
   // Avoids a separate GetPendingCases call after adding the new cases to the run.
   repeated PendingEntry pending = 3;
+  // Case paths that were skipped because a case with that path already exists.
+  repeated string skipped_paths = 4;
 }
 
 message UpdateCaseRequest {
