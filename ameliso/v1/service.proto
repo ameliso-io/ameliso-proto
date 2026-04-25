@@ -374,6 +374,9 @@ message ListRunsResponse {
 message GetRunRequest {
   string repo_id = 1;
   string run_id = 2;
+  // 0 = return all (default, backward-compatible)
+  int32 page_size = 3;
+  string page_token = 4;
 }
 
 message GetRunResponse {
@@ -381,6 +384,7 @@ message GetRunResponse {
   // In-scope cases for this run — same set as GetPendingCases returns for a pending run.
   // Populated so callers can avoid a separate ListCases call.
   repeated Case cases = 2;
+  string next_page_token = 3;
 }
 
 message CreateRunRequest {
@@ -514,6 +518,9 @@ message GetPendingCasesRequest {
   // When set (non-UNSPECIFIED), only return pending cases at this priority level.
   // Useful for agents that want to tackle high-priority cases first.
   Priority priority_filter = 3;
+  // 0 = return all (default, backward-compatible)
+  int32 page_size = 4;
+  string page_token = 5;
 }
 
 // A pending test case with status — for agent-friendly GetPendingCases and CreateRun.
@@ -534,6 +541,7 @@ message GetPendingCasesResponse {
   // Preferred: full pending case data — case metadata (with body) + latest_status.
   // Sorted failed/never first then by case priority.
   repeated PendingEntry pending = 4;
+  string next_page_token = 5;
 }
 
 message UpdateRunRequest {
