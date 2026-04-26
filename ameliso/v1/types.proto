@@ -19,6 +19,9 @@ message Case {
   repeated string strategy_ids = 9;
   // When true, this case can be executed and validated by an AI agent.
   bool ai_runnable = 10;
+  // Case slugs that must pass before this case is run. Used to model test
+  // ordering constraints (e.g. checkout requires login). Empty = no prerequisites.
+  repeated string prerequisites = 11;
 }
 
 message TestingStrategy {

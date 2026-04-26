@@ -240,6 +240,12 @@ message UpdateCaseRequest {
   repeated string strategy_ids = 9;
   // Optional override for ai_runnable. Uses existing value if not set.
   optional bool ai_runnable = 10;
+  // When `set_prerequisites` is true, replace the case's prerequisite list
+  // with `prerequisites`. When false (proto3 default), the existing list is
+  // left untouched. An empty `prerequisites` with set_prerequisites=true
+  // clears all prerequisites.
+  repeated string prerequisites = 11;
+  bool set_prerequisites = 12;
 }
 
 message UpdateCaseResponse {
