@@ -128,6 +128,8 @@ message ListCasesRequest {
   // 0 = return all (default, backward-compatible)
   int32 page_size = 6;
   string page_token = 7;
+  // When true, return only cases flagged as AI-runnable.
+  bool ai_runnable_only = 8;
 }
 
 message ListCasesResponse {
@@ -180,6 +182,7 @@ message CreateCaseRequest {
   Priority priority = 6;
   string body = 7;
   repeated string strategy_ids = 8;
+  bool ai_runnable = 9;
 }
 
 message CreateCaseResponse {
@@ -235,6 +238,8 @@ message UpdateCaseRequest {
   // When non-empty, set the case's linked strategy IDs to exactly this list.
   // If empty (proto3 default), strategies are left unchanged.
   repeated string strategy_ids = 9;
+  // Optional override for ai_runnable. Uses existing value if not set.
+  optional bool ai_runnable = 10;
 }
 
 message UpdateCaseResponse {

@@ -17,6 +17,8 @@ message Case {
   string body = 8;
   // IDs of testing strategies linked to this case.
   repeated string strategy_ids = 9;
+  // When true, this case can be executed and validated by an AI agent.
+  bool ai_runnable = 10;
 }
 
 message TestingStrategy {
