@@ -645,6 +645,8 @@ message ActiveRunStatus {
   int32 total_in_scope = 6;
   string commit_sha = 7;
   string environment = 8;
+  // Server-formatted relative timestamp (e.g. "2h ago", "3 days ago", "Apr 25, 2026").
+  string formatted_date = 9;
 }
 
 message GetRepoStatusResponse {
