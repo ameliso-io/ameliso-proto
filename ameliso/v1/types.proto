@@ -22,6 +22,9 @@ message Case {
   // Case slugs that must pass before this case is run. Used to model test
   // ordering constraints (e.g. checkout requires login). Empty = no prerequisites.
   repeated string prerequisites = 11;
+  // Server-formatted relative timestamps (e.g. "2h ago", "3 days ago", "Apr 25, 2026").
+  string formatted_created_at = 12;
+  string formatted_updated_at = 13;
 }
 
 message TestingStrategy {
@@ -73,6 +76,8 @@ message RunMeta {
   int32 skipped = 11;
   int32 total = 12;
   string description = 13;
+  // Server-formatted relative timestamp (e.g. "2h ago", "3 days ago", "Apr 25, 2026").
+  string formatted_date = 14;
 }
 
 message CaseResult {
@@ -142,6 +147,8 @@ message AuditEntry {
   string resource_type = 3; // "case", "run", "suite"
   string resource_id = 4;   // case_path, run_id, or slug
   string created_at = 5;    // ISO-8601 timestamp
+  // Server-formatted relative timestamp (e.g. "2h ago", "3 days ago", "Apr 25, 2026").
+  string formatted_created_at = 6;
 }
 
 // A GitHub repository connected via the GitHub App installation.
