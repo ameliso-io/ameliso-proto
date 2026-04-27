@@ -545,6 +545,10 @@ message PendingEntry {
   // Deprecated: use case.body instead (Case.body is now always populated).
   string body = 2;
   ResultStatus latest_status = 3;
+  // True when at least one of this case's prerequisites has a latest_status
+  // of FAILED or BLOCKED in the same run scope. Agents should skip or defer
+  // such cases until the prerequisites are passing.
+  bool blocked_by_prerequisite = 4;
 }
 
 message GetPendingCasesResponse {
