@@ -143,8 +143,8 @@ enum Priority {
 
 message AuditEntry {
   int64 id = 1;
-  string action = 2;        // "delete"
-  string resource_type = 3; // "case", "run", "suite"
+  string action = 2;        // "create" | "delete" | "restore"
+  string resource_type = 3; // "case", "run", "suite", "strategy"
   string resource_id = 4;   // case_path, run_id, or slug
   string created_at = 5;    // ISO-8601 timestamp
   // Server-formatted relative timestamp (e.g. "2h ago", "3 days ago", "Apr 25, 2026").
