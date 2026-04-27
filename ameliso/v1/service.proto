@@ -130,6 +130,8 @@ message ListCasesRequest {
   string page_token = 7;
   // When true, return only cases flagged as AI-runnable.
   bool ai_runnable_only = 8;
+  // Optional lifecycle-status filter: "draft" or "published". Empty returns all.
+  string status = 9;
 }
 
 message ListCasesResponse {
