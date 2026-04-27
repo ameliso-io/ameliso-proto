@@ -25,6 +25,10 @@ message Case {
   // Server-formatted relative timestamps (e.g. "2h ago", "3 days ago", "Apr 25, 2026").
   string formatted_created_at = 12;
   string formatted_updated_at = 13;
+  // Lifecycle status: "draft" = work-in-progress (excluded from runs by default),
+  // "published" = approved (default for existing cases). Empty string treated as
+  // "published" for backwards compatibility.
+  string status = 14;
 }
 
 message TestingStrategy {

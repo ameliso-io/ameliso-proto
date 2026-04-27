@@ -246,6 +246,9 @@ message UpdateCaseRequest {
   // clears all prerequisites.
   repeated string prerequisites = 11;
   bool set_prerequisites = 12;
+  // Optional status override ("draft" or "published"). Empty string (proto3
+  // default) leaves the existing status unchanged.
+  string status = 13;
 }
 
 message UpdateCaseResponse {
