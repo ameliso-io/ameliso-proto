@@ -183,6 +183,8 @@ message CreateCaseRequest {
   string body = 7;
   repeated string strategy_ids = 8;
   bool ai_runnable = 9;
+  // Lifecycle status: "draft" or "published". Defaults to "published" when empty.
+  string status = 10;
 }
 
 message CreateCaseResponse {
