@@ -102,6 +102,13 @@ service AmelisoService {
   rpc CreateRepoToken(CreateRepoTokenRequest) returns (CreateRepoTokenResponse);
   rpc DeleteRepoToken(DeleteRepoTokenRequest) returns (DeleteRepoTokenResponse);
   rpc UpdateRepoToken(UpdateRepoTokenRequest) returns (UpdateRepoTokenResponse);
+
+  // --- User-scoped personal access tokens (PATs) ---
+  // Mint, list, and revoke user-bound API tokens for CLI / MCP authentication.
+  // Authn: requires an Auth0 JWT — operates on the JWT-resolved user.
+  rpc CreateUserToken(CreateUserTokenRequest) returns (CreateUserTokenResponse);
+  rpc ListUserTokens(ListUserTokensRequest) returns (ListUserTokensResponse);
+  rpc RevokeUserToken(RevokeUserTokenRequest) returns (RevokeUserTokenResponse);
   // Append-only log of destructive actions (delete case/run/suite).
   rpc ListAuditLog(ListAuditLogRequest) returns (ListAuditLogResponse);
 
@@ -778,6 +785,28 @@ message DeleteRepoTokenRequest { string repo_id = 1; string token = 2; }
 message DeleteRepoTokenResponse {}
 message UpdateRepoTokenRequest { string repo_id = 1; string token = 2; string role = 3; }
 message UpdateRepoTokenResponse { RepoToken token = 1; }
+
+message UserToken {
+  string id = 1;                       // UUID of the row
+  string name = 2;                     // human label provided at mint time
+  string token_prefix = 3;             // first 12 chars of the secret (display only)
+  string created_at = 4;                // ISO-8601
+  string last_used_at = 5;              // ISO-8601 or empty
+  string expires_at = 6;                // ISO-8601 or empty for "never"
+}
+message CreateUserTokenRequest {
+  string name = 1;
+  optional int32 expires_in_days = 2;   // 0 / absent = never
+}
+message CreateUserTokenResponse {
+  UserToken token = 1;
+  // The full bearer string. Returned ONCE at creation; never queryable later.
+  string secret = 2;
+}
+message ListUserTokensRequest {}
+message ListUserTokensResponse { repeated UserToken tokens = 1; }
+message RevokeUserTokenRequest { string id = 1; }
+message RevokeUserTokenResponse {}
 
 message ListAuditLogRequest {
   string repo_id = 1;
