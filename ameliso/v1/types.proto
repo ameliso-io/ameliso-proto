@@ -159,6 +159,12 @@ message AuditEntry {
   // x-request-id header value (or server-generated UUID) — correlates this
   // audit row with the originating gRPC request and downstream traces.
   string request_id = 8;
+  // "success" or "error". Empty for legacy rows recorded before the
+  // outcome column was introduced.
+  string outcome = 9;
+  // Short machine-readable code (e.g. "invalid_argument", "permission_denied")
+  // when outcome == "error". Empty otherwise.
+  string error_code = 10;
 }
 
 // A GitHub repository connected via the GitHub App installation.
