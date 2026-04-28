@@ -153,6 +153,12 @@ message AuditEntry {
   string created_at = 5;    // ISO-8601 timestamp
   // Server-formatted relative timestamp (e.g. "2h ago", "3 days ago", "Apr 25, 2026").
   string formatted_created_at = 6;
+  // Auth0-resolved user UUID (string form). Empty when the request was made
+  // with an opaque API key or no JWT was presented.
+  string user_id = 7;
+  // x-request-id header value (or server-generated UUID) — correlates this
+  // audit row with the originating gRPC request and downstream traces.
+  string request_id = 8;
 }
 
 // A GitHub repository connected via the GitHub App installation.
