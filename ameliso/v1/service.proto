@@ -817,6 +817,11 @@ message ListAuditLogRequest {
   string action = 6;
   string since = 7;
   string until = 8;
+  // Filter to rows recorded for this Auth0/PAT-resolved user (UUID string).
+  // Empty = no user filter.
+  string user_id = 9;
+  // Filter to rows with this outcome ("success" or "error"). Empty = no filter.
+  string outcome = 10;
 }
 
 message ListAuditLogResponse {
