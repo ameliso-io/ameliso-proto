@@ -165,6 +165,11 @@ message AuditEntry {
   // Short machine-readable code (e.g. "invalid_argument", "permission_denied")
   // when outcome == "error". Empty otherwise.
   string error_code = 10;
+  // Client IP address as captured by the server interceptor. Empty when the
+  // transport did not expose one (e.g. unix socket).
+  string ip = 11;
+  // User-Agent header value as sent by the client. Empty when not provided.
+  string user_agent = 12;
 }
 
 // A GitHub repository connected via the GitHub App installation.
