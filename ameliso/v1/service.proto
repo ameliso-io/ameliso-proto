@@ -897,6 +897,7 @@ message CreateStrategyRequest {
   string name = 3;
   string description = 4;
   repeated string tags = 5;
+  string execution_hints = 6;
 }
 message CreateStrategyResponse { TestingStrategy strategy = 1; }
 message UpdateStrategyRequest {
@@ -906,6 +907,7 @@ message UpdateStrategyRequest {
   string description = 4;
   repeated string tags = 5;
   string new_id = 6;
+  string execution_hints = 7;
 }
 message UpdateStrategyResponse { TestingStrategy strategy = 1; }
 message DeleteStrategyRequest { string repo_id = 1; string strategy_id = 2; }

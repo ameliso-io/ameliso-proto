@@ -39,6 +39,7 @@ message TestingStrategy {
   string created_at = 5;
   string updated_at = 6;
   string deleted_at = 7;
+  string execution_hints = 8;
 }
 
 message RunTemplate {
