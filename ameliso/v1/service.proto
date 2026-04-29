@@ -84,6 +84,8 @@ service AmelisoService {
   rpc GetCoverageReport(GetCoverageReportRequest) returns (GetCoverageReportResponse);
   // Pass-rate trend over a date range, per-day breakdown, and flaky case list.
   rpc GetRunTrendMetrics(GetRunTrendMetricsRequest) returns (GetRunTrendMetricsResponse);
+  // Top flaky cases by flip count, with configurable lookback and suite filter.
+  rpc GetFlakyCases(GetFlakyCasesRequest) returns (GetFlakyCasesResponse);
   // Return cases affected by source changes since since_ref (uses GitHub compare API).
   // Sorted failed/never first then by priority — same ordering as GetPendingCases.
   rpc GetAffectedCases(GetAffectedCasesRequest) returns (GetAffectedCasesResponse);
@@ -147,12 +149,6 @@ service AmelisoService {
   rpc ListPermissions(ListPermissionsRequest) returns (ListPermissionsResponse);
   rpc AddPermission(AddPermissionRequest) returns (AddPermissionResponse);
   rpc RemovePermission(RemovePermissionRequest) returns (RemovePermissionResponse);
-
-  // --- Analytics ---
-  // Aggregated pass/fail/total counts grouped by day for a lookback window.
-  rpc GetRunTrendMetrics(GetRunTrendMetricsRequest) returns (GetRunTrendMetricsResponse);
-  // Standalone flaky-cases query with configurable lookback, suite filter, and limit.
-  rpc GetFlakyCases(GetFlakyCasesRequest) returns (GetFlakyCasesResponse);
 
   // --- Account ---
   // Returns the user resolved from the Bearer credential (Auth0 JWT or PAT).
@@ -1012,16 +1008,6 @@ message WhoAmIResponse {
 }
 
 // --- Analytics ---
-
-message GetRunTrendMetricsRequest {
-  string repo_id = 1;
-  int32 days_lookback = 2;
-  string suite = 3;
-}
-
-message GetRunTrendMetricsResponse {
-  repeated ameliso.v1.RunTrendMetric metrics = 1;
-}
 
 message GetFlakyCasesRequest {
   string repo_id = 1;
