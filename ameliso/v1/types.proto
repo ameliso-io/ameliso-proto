@@ -170,6 +170,9 @@ message AuditEntry {
   string ip = 11;
   // User-Agent header value as sent by the client. Empty when not provided.
   string user_agent = 12;
+  // Free-form JSON payload captured at audit time (jsonb in DB). Encoded as a
+  // compact JSON string. Empty when the row had no payload.
+  string payload_json = 13;
 }
 
 // A GitHub repository connected via the GitHub App installation.
