@@ -186,6 +186,14 @@ message Repository {
   string installation_id = 6;
   string added_at = 8;
   string api_key = 9;
+  // Storage backend (#162). One of "github", "testmo".
+  string adapter_kind = 10;
+  // ISO-8601 timestamp of the last successful SyncRepository, or empty.
+  string last_synced_at = 11;
+  // ISO-8601 timestamp of the last *failed* background mirror push, or empty.
+  string last_failure_at = 12;
+  // Human-readable reason for the last failure, or empty when healthy.
+  string last_failure_reason = 13;
 }
 
 message SuiteCoverageSummary {
