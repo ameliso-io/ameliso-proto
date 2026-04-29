@@ -241,3 +241,23 @@ message RunTrendMetric {
   int32 total = 6;
   string suite = 7;
 }
+
+message OutboundWebhook {
+  string id = 1;
+  string repo_id = 2;
+  string url = 3;
+  string secret = 4;
+  repeated string event_types = 5;
+  string created_at = 6;
+  string updated_at = 7;
+}
+
+message OutboundWebhookDelivery {
+  string id = 1;
+  string repo_id = 2;
+  string webhook_id = 3;
+  string event = 4;
+  int32 status_code = 5;
+  string outcome = 6;
+  string delivered_at = 7;
+}

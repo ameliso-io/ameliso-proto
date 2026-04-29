@@ -135,6 +135,13 @@ service AmelisoService {
   rpc UpdateRunTemplate(UpdateRunTemplateRequest) returns (UpdateRunTemplateResponse);
   rpc DeleteRunTemplate(DeleteRunTemplateRequest) returns (DeleteRunTemplateResponse);
 
+  // --- Outbound Webhooks ---
+  rpc ListOutboundWebhooks(ListOutboundWebhooksRequest) returns (ListOutboundWebhooksResponse);
+  rpc CreateOutboundWebhook(CreateOutboundWebhookRequest) returns (CreateOutboundWebhookResponse);
+  rpc UpdateOutboundWebhook(UpdateOutboundWebhookRequest) returns (UpdateOutboundWebhookResponse);
+  rpc DeleteOutboundWebhook(DeleteOutboundWebhookRequest) returns (DeleteOutboundWebhookResponse);
+  rpc ListOutboundWebhookDeliveries(ListOutboundWebhookDeliveriesRequest) returns (ListOutboundWebhookDeliveriesResponse);
+
   rpc ListPermissions(ListPermissionsRequest) returns (ListPermissionsResponse);
   rpc AddPermission(AddPermissionRequest) returns (AddPermissionResponse);
   rpc RemovePermission(RemovePermissionRequest) returns (RemovePermissionResponse);
@@ -1011,3 +1018,33 @@ message GetFlakyCasesRequest {
 message GetFlakyCasesResponse {
   repeated ameliso.v1.FlakyCaseSummary cases = 1;
 }
+
+// --- Outbound Webhooks ---
+message ListOutboundWebhooksRequest { string repo_id = 1; }
+message ListOutboundWebhooksResponse { repeated OutboundWebhook webhooks = 1; }
+
+message CreateOutboundWebhookRequest {
+  string repo_id = 1;
+  string url = 2;
+  string secret = 3;
+  repeated string event_types = 4;
+}
+message CreateOutboundWebhookResponse { OutboundWebhook webhook = 1; }
+
+message UpdateOutboundWebhookRequest {
+  string repo_id = 1;
+  string id = 2;
+  string url = 3;
+  string secret = 4;
+  repeated string event_types = 5;
+}
+message UpdateOutboundWebhookResponse { OutboundWebhook webhook = 1; }
+
+message DeleteOutboundWebhookRequest { string repo_id = 1; string id = 2; }
+message DeleteOutboundWebhookResponse {}
+
+message ListOutboundWebhookDeliveriesRequest {
+  string repo_id = 1;
+  int32 limit = 2;
+}
+message ListOutboundWebhookDeliveriesResponse { repeated OutboundWebhookDelivery deliveries = 1; }
