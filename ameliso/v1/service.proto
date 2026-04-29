@@ -126,6 +126,14 @@ service AmelisoService {
   rpc UpdateStrategy(UpdateStrategyRequest) returns (UpdateStrategyResponse);
   rpc DeleteStrategy(DeleteStrategyRequest) returns (DeleteStrategyResponse);
   rpc RestoreStrategy(RestoreStrategyRequest) returns (RestoreStrategyResponse);
+
+  // --- Run Templates ---
+  rpc ListRunTemplates(ListRunTemplatesRequest) returns (ListRunTemplatesResponse);
+  rpc GetRunTemplate(GetRunTemplateRequest) returns (GetRunTemplateResponse);
+  rpc CreateRunTemplate(CreateRunTemplateRequest) returns (CreateRunTemplateResponse);
+  rpc UpdateRunTemplate(UpdateRunTemplateRequest) returns (UpdateRunTemplateResponse);
+  rpc DeleteRunTemplate(DeleteRunTemplateRequest) returns (DeleteRunTemplateResponse);
+
   rpc ListPermissions(ListPermissionsRequest) returns (ListPermissionsResponse);
   rpc AddPermission(AddPermissionRequest) returns (AddPermissionResponse);
   rpc RemovePermission(RemovePermissionRequest) returns (RemovePermissionResponse);
@@ -904,6 +912,35 @@ message DeleteStrategyRequest { string repo_id = 1; string strategy_id = 2; }
 message DeleteStrategyResponse {}
 message RestoreStrategyRequest { string repo_id = 1; string strategy_id = 2; }
 message RestoreStrategyResponse {}
+
+// --- Run Templates ---
+
+message ListRunTemplatesRequest { string repo_id = 1; }
+message ListRunTemplatesResponse { repeated RunTemplate templates = 1; }
+message GetRunTemplateRequest { string repo_id = 1; string template_id = 2; }
+message GetRunTemplateResponse { RunTemplate template = 1; }
+message CreateRunTemplateRequest {
+  string repo_id = 1;
+  string template_id = 2;
+  string title = 3;
+  string description = 4;
+  repeated string suite_ids = 5;
+  string default_strategy_id = 6;
+  repeated string tags = 7;
+}
+message CreateRunTemplateResponse { RunTemplate template = 1; }
+message UpdateRunTemplateRequest {
+  string repo_id = 1;
+  string template_id = 2;
+  string title = 3;
+  string description = 4;
+  repeated string suite_ids = 5;
+  string default_strategy_id = 6;
+  repeated string tags = 7;
+}
+message UpdateRunTemplateResponse { RunTemplate template = 1; }
+message DeleteRunTemplateRequest { string repo_id = 1; string template_id = 2; }
+message DeleteRunTemplateResponse {}
 
 // --- Permissions ---
 

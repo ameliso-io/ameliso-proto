@@ -41,6 +41,17 @@ message TestingStrategy {
   string deleted_at = 7;
 }
 
+message RunTemplate {
+  string id = 1;
+  string title = 2;
+  string description = 3;
+  repeated string suite_ids = 4;
+  string default_strategy_id = 5;
+  repeated string tags = 6;
+  string created_at = 7;
+  string updated_at = 8;
+}
+
 message RepoPermission {
   string name = 1;
   string role = 2;
