@@ -109,6 +109,10 @@ service AmelisoService {
   rpc CreateUserToken(CreateUserTokenRequest) returns (CreateUserTokenResponse);
   rpc ListUserTokens(ListUserTokensRequest) returns (ListUserTokensResponse);
   rpc RevokeUserToken(RevokeUserTokenRequest) returns (RevokeUserTokenResponse);
+  // Atomically revoke an existing personal access token and mint a fresh
+  // one with the same name + expiry. Returns the new token + its plaintext
+  // secret (shown ONCE).
+  rpc RotateUserToken(RotateUserTokenRequest) returns (RotateUserTokenResponse);
   // Append-only log of destructive actions (delete case/run/suite).
   rpc ListAuditLog(ListAuditLogRequest) returns (ListAuditLogResponse);
 
@@ -807,6 +811,16 @@ message ListUserTokensRequest {}
 message ListUserTokensResponse { repeated UserToken tokens = 1; }
 message RevokeUserTokenRequest { string id = 1; }
 message RevokeUserTokenResponse {}
+message RotateUserTokenRequest {
+  // ID of the token to rotate. The new token reuses the same name +
+  // expiry; only the plaintext secret changes.
+  string id = 1;
+}
+message RotateUserTokenResponse {
+  UserToken token = 1;
+  // The full bearer string for the new token. Returned ONCE.
+  string secret = 2;
+}
 
 message ListAuditLogRequest {
   string repo_id = 1;
