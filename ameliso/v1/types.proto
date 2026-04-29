@@ -261,3 +261,22 @@ message OutboundWebhookDelivery {
   string outcome = 6;
   string delivered_at = 7;
 }
+
+message RunTrendPoint {
+  string date = 1;
+  int32 run_count = 2;
+  int32 passed = 3;
+  int32 failed = 4;
+  int32 blocked = 5;
+  int32 skipped = 6;
+  float pass_rate_pct = 7;
+}
+
+message RunCompletionFunnel {
+  int32 total_slots = 1;
+  int32 executed = 2;
+  int32 passed = 3;
+  int32 failed = 4;
+  int32 blocked = 5;
+  int32 skipped = 6;
+}

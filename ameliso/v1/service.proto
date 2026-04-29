@@ -82,6 +82,8 @@ service AmelisoService {
   // --- Reports ---
   // Coverage for all cases; sorted failed/never first then by priority. Optional status_filter.
   rpc GetCoverageReport(GetCoverageReportRequest) returns (GetCoverageReportResponse);
+  // Pass-rate trend over a date range, per-day breakdown, and flaky case list.
+  rpc GetRunTrendMetrics(GetRunTrendMetricsRequest) returns (GetRunTrendMetricsResponse);
   // Return cases affected by source changes since since_ref (uses GitHub compare API).
   // Sorted failed/never first then by priority — same ordering as GetPendingCases.
   rpc GetAffectedCases(GetAffectedCasesRequest) returns (GetAffectedCasesResponse);
@@ -681,6 +683,19 @@ message GetCoverageReportRequest {
 message GetCoverageReportResponse {
   repeated CoverageEntry entries = 1;
   int32 run_count = 2;
+}
+
+message GetRunTrendMetricsRequest {
+  string repo_id = 1;
+  string start_date = 2;
+  string end_date = 3;
+  string suite_filter = 4;
+}
+
+message GetRunTrendMetricsResponse {
+  repeated RunTrendPoint points = 1;
+  RunCompletionFunnel funnel = 2;
+  repeated FlakyCaseSummary flaky_cases = 3;
 }
 
 message GetAffectedCasesRequest {
