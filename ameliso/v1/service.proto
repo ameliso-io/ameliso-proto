@@ -46,6 +46,7 @@ service AmelisoService {
   rpc ListCases(ListCasesRequest) returns (ListCasesResponse);
   rpc GetCase(GetCaseRequest) returns (GetCaseResponse);
   rpc GetCaseHistory(GetCaseHistoryRequest) returns (GetCaseHistoryResponse);
+  rpc GetCaseGitHistory(GetCaseGitHistoryRequest) returns (GetCaseGitHistoryResponse);
   rpc CreateCase(CreateCaseRequest) returns (CreateCaseResponse);
   rpc BulkCreateCases(BulkCreateCasesRequest) returns (BulkCreateCasesResponse);
   rpc UpdateCase(UpdateCaseRequest) returns (UpdateCaseResponse);
@@ -201,6 +202,17 @@ message GetCaseHistoryResponse {
   repeated CaseHistoryEntry entries = 1;
   string next_page_token = 2;
   int32 total_count = 3;
+}
+
+message GetCaseGitHistoryRequest {
+  string repo_id = 1;
+  string case_path = 2;
+  // 0 = use default (20)
+  int32 limit = 3;
+}
+
+message GetCaseGitHistoryResponse {
+  repeated CaseGitCommit commits = 1;
 }
 
 message CreateCaseRequest {

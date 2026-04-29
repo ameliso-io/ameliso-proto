@@ -224,3 +224,11 @@ message FlakyCaseSummary {
   int32 flip_count = 2;
   string last_flip_sha = 3;
 }
+
+message CaseGitCommit {
+  string sha = 1;
+  string author = 2;
+  string date = 3;
+  string message = 4;
+}
+
