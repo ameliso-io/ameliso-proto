@@ -96,6 +96,8 @@ message CaseResult {
   int64 duration_ms = 5;
   // Free-form failure category (e.g. "assertion", "timeout", "crash"). Empty when not set.
   string error_type = 6;
+  // ID of the testing strategy used to execute this case. Empty when not recorded.
+  string strategy_id = 7;
 }
 
 message Run {

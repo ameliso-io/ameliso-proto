@@ -485,6 +485,8 @@ message RecordResultRequest {
   int64 duration_ms = 6;
   // Free-form failure category (e.g. "assertion", "timeout", "crash"). Empty when not set.
   string error_type = 7;
+  // ID of the testing strategy used to execute this case. Empty when not set.
+  string strategy_id = 8;
 }
 
 message RecordResultResponse {
@@ -504,6 +506,8 @@ message BulkResultEntry {
   int64 duration_ms = 4;
   // Free-form failure category (e.g. "assertion", "timeout", "crash"). Empty when not set.
   string error_type = 5;
+  // ID of the testing strategy used to execute this case. Empty when not set.
+  string strategy_id = 6;
 }
 
 message BulkRecordResultsRequest {
