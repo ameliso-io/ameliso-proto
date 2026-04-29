@@ -82,6 +82,8 @@ message RunMeta {
   string description = 13;
   // Server-formatted relative timestamp (e.g. "2h ago", "3 days ago", "Apr 25, 2026").
   string formatted_date = 14;
+  // User UUID of the agent or user who claimed this run; empty when unclaimed.
+  string assignee_id = 15;
 }
 
 message CaseResult {

@@ -74,6 +74,9 @@ service AmelisoService {
   rpc GetPendingCases(GetPendingCasesRequest) returns (GetPendingCasesResponse);
   // Rename a run's slug (date prefix is preserved). Returns the updated run metadata.
   rpc UpdateRun(UpdateRunRequest) returns (UpdateRunResponse);
+  // Atomically claim a run for the authenticated user. Only succeeds when the run is
+  // unclaimed or already claimed by the same user. Returns the updated run metadata.
+  rpc ClaimRun(ClaimRunRequest) returns (ClaimRunResponse);
 
   // --- Reports ---
   // Coverage for all cases; sorted failed/never first then by priority. Optional status_filter.
@@ -400,6 +403,8 @@ message ListRunsRequest {
   string page_token = 4;
   // Optional free-text search against run_id, suite, and environment.
   string query = 5;
+  // When non-empty, only return runs claimed by this user UUID.
+  string assignee_id = 6;
 }
 
 message ListRunsResponse {
@@ -613,6 +618,14 @@ message UpdateRunResponse {
   // Updated pending cases after any add_cases — avoids a separate GetPendingCases call.
   // Populated only when add_cases is non-empty.
   repeated PendingEntry pending = 3;
+}
+
+message ClaimRunRequest {
+  string repo_id = 1;
+  string run_id = 2;
+}
+message ClaimRunResponse {
+  RunMeta run = 1;
 }
 
 // --- Reports ---
