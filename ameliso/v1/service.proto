@@ -126,6 +126,12 @@ service AmelisoService {
   rpc ListPermissions(ListPermissionsRequest) returns (ListPermissionsResponse);
   rpc AddPermission(AddPermissionRequest) returns (AddPermissionResponse);
   rpc RemovePermission(RemovePermissionRequest) returns (RemovePermissionResponse);
+
+  // --- Account ---
+  // Returns the user resolved from the Bearer credential (Auth0 JWT or PAT).
+  // Lets the web UI render the signed-in user's info and pre-fill audit-log
+  // "my actions" filters without exposing the raw token.
+  rpc WhoAmI(WhoAmIRequest) returns (WhoAmIResponse);
 }
 
 // --- Cases ---
@@ -897,3 +903,14 @@ message AddPermissionResponse {
 }
 message RemovePermissionRequest { string repo_id = 1; string name = 2; }
 message RemovePermissionResponse {}
+
+message WhoAmIRequest {}
+message WhoAmIResponse {
+  // Internal user UUID. Empty when the request was made with the global
+  // AMELISO_API_KEY (system identity, not a human user).
+  string user_id = 1;
+  // Auth0 `sub` claim or PAT-derived equivalent. Empty for system identity.
+  string auth0_sub = 2;
+  string email = 3;
+  string name = 4;
+}
