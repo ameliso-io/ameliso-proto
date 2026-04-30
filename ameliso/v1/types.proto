@@ -71,6 +71,8 @@ message Suite {
   string name = 2;
   string description = 3;
   repeated string cases = 4;
+  // Default testing strategy for runs created from this suite.
+  string default_strategy_id = 5;
 }
 
 message RunMeta {
@@ -96,6 +98,8 @@ message RunMeta {
   string formatted_date = 14;
   // User UUID of the agent or user who claimed this run; empty when unclaimed.
   string assignee_id = 15;
+  // ID of the testing strategy used for this run. Empty when not set.
+  string strategy_id = 16;
 }
 
 message CaseResult {
