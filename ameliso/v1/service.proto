@@ -402,6 +402,8 @@ message UpdateSuiteRequest {
   bool replace_cases = 6;
   // When non-empty, rename the suite to this slug. Must be unique within the repo.
   string new_slug = 7;
+  // When non-empty, sets the default strategy for runs created from this suite. Pass "" to clear.
+  string default_strategy_id = 8;
 }
 
 message UpdateSuiteResponse {
