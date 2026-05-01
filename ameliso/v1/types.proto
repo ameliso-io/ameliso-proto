@@ -71,7 +71,7 @@ message Suite {
   string name = 2;
   string description = 3;
   repeated string cases = 4;
-  // Default testing strategy for runs created from this suite.
+  // Default testing strategy applied when starting a run from this suite.
   string default_strategy_id = 5;
 }
 
@@ -100,8 +100,6 @@ message RunMeta {
   string assignee_id = 15;
   // ID of the testing strategy used for this run. Empty when not set.
   string strategy_id = 16;
-  // GitHub PR number to post a check run against on finalization. 0 means not set.
-  int32 pr_number = 17;
 }
 
 message CaseResult {
