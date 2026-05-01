@@ -492,6 +492,8 @@ message CreateRunRequest {
   string description = 11;
   // Optional testing strategy ID to associate with this run.
   string strategy_id = 12;
+  // GitHub pull request number to associate with this run. 0 when not set.
+  int32 pr_number = 13;
 }
 
 message CreateRunResponse {
