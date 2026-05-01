@@ -172,6 +172,8 @@ message ListCasesRequest {
   bool ai_runnable_only = 8;
   // Optional lifecycle-status filter: "draft" or "published". Empty returns all.
   string status = 9;
+  // Optional sync-status filter. UNSPECIFIED returns all.
+  SyncStatus sync_status_filter = 10;
 }
 
 message ListCasesResponse {
@@ -362,6 +364,8 @@ message ListSuitesRequest {
   string page_token = 3;
   // Optional free-text search against slug and name.
   string query = 4;
+  // Optional sync-status filter. UNSPECIFIED returns all.
+  SyncStatus sync_status_filter = 5;
 }
 
 message ListSuitesResponse {
@@ -438,6 +442,8 @@ message ListRunsRequest {
   string query = 5;
   // When non-empty, only return runs claimed by this user UUID.
   string assignee_id = 6;
+  // Optional sync-status filter. UNSPECIFIED returns all.
+  SyncStatus sync_status_filter = 7;
 }
 
 message ListRunsResponse {

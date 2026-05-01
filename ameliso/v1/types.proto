@@ -29,6 +29,8 @@ message Case {
   // "published" = approved (default for existing cases). Empty string treated as
   // "published" for backwards compatibility.
   string status = 14;
+  SyncStatus sync_status = 15;
+  string last_sync_error = 16;
 }
 
 message TestingStrategy {
@@ -73,6 +75,8 @@ message Suite {
   repeated string cases = 4;
   // Default testing strategy applied when starting a run from this suite.
   string default_strategy_id = 5;
+  SyncStatus sync_status = 6;
+  string last_sync_error = 7;
 }
 
 message RunMeta {
@@ -102,6 +106,8 @@ message RunMeta {
   string strategy_id = 16;
   // GitHub pull request number associated with this run. 0 when not set.
   int32 pr_number = 17;
+  SyncStatus sync_status = 18;
+  string last_sync_error = 19;
 }
 
 message CaseResult {
@@ -165,6 +171,14 @@ enum Priority {
   PRIORITY_LOW = 1;
   PRIORITY_MEDIUM = 2;
   PRIORITY_HIGH = 3;
+}
+
+enum SyncStatus {
+  SYNC_STATUS_UNSPECIFIED = 0;
+  SYNC_STATUS_UNSYNCED = 1;
+  SYNC_STATUS_SYNCING = 2;
+  SYNC_STATUS_SYNCED = 3;
+  SYNC_STATUS_FAILED = 4;
 }
 
 message AuditEntry {
