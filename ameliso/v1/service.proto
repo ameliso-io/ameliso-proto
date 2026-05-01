@@ -531,6 +531,9 @@ message RecordResultRequest {
   string error_type = 7;
   // ID of the testing strategy used to execute this case. Empty when not set.
   string strategy_id = 8;
+  // When true, skip prerequisite blocking check. Allows recording a result even
+  // if prerequisite cases have not yet passed in the current run.
+  bool skip_prerequisite_check = 9;
 }
 
 message RecordResultResponse {
@@ -552,6 +555,8 @@ message BulkResultEntry {
   string error_type = 5;
   // ID of the testing strategy used to execute this case. Empty when not set.
   string strategy_id = 6;
+  // When true, skip prerequisite blocking check for this specific entry.
+  bool skip_prerequisite_check = 7;
 }
 
 message BulkRecordResultsRequest {

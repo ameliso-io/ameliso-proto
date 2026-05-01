@@ -280,6 +280,7 @@ message OutboundWebhookDelivery {
   int32 status_code = 5;
   string outcome = 6;
   string delivered_at = 7;
+  string payload = 8;
 }
 
 message RunTrendPoint {
