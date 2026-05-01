@@ -138,6 +138,8 @@ message CoverageEntry {
   string body = 5;
   // 0.0 = never flaky, 1.0 = status changes every run. Only set when ≥2 results exist.
   float flakiness_score = 6;
+  // Average execution time in milliseconds across all recorded results. 0 means not recorded.
+  int64 duration_ms = 7;
 }
 
 message AffectedCase {
