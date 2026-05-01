@@ -145,6 +145,7 @@ service AmelisoService {
   rpc UpdateOutboundWebhook(UpdateOutboundWebhookRequest) returns (UpdateOutboundWebhookResponse);
   rpc DeleteOutboundWebhook(DeleteOutboundWebhookRequest) returns (DeleteOutboundWebhookResponse);
   rpc ListOutboundWebhookDeliveries(ListOutboundWebhookDeliveriesRequest) returns (ListOutboundWebhookDeliveriesResponse);
+  rpc RetryWebhookDelivery(RetryWebhookDeliveryRequest) returns (RetryWebhookDeliveryResponse);
 
   rpc ListPermissions(ListPermissionsRequest) returns (ListPermissionsResponse);
   rpc AddPermission(AddPermissionRequest) returns (AddPermissionResponse);
@@ -1061,3 +1062,10 @@ message ListOutboundWebhookDeliveriesRequest {
   int32 limit = 2;
 }
 message ListOutboundWebhookDeliveriesResponse { repeated OutboundWebhookDelivery deliveries = 1; }
+
+message RetryWebhookDeliveryRequest {
+  string repo_id = 1;
+  string webhook_id = 2;
+  string delivery_id = 3;
+}
+message RetryWebhookDeliveryResponse { OutboundWebhookDelivery delivery = 1; }
