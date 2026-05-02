@@ -636,6 +636,9 @@ message PendingEntry {
   // of FAILED or BLOCKED in the same run scope. Agents should skip or defer
   // such cases until the prerequisites are passing.
   bool blocked_by_prerequisite = 4;
+
+  // ISO date of the most recent run that included this case (empty if never run).
+  string last_run_date = 5;
 }
 
 message GetPendingCasesResponse {
