@@ -254,6 +254,12 @@ message FlakyCaseSummary {
   string last_flip_sha = 3;
 }
 
+message TrendCaseSummary {
+  string case_path = 1;
+  int32 streak = 2;         // consecutive pass count (improved) or fail count (regressed)
+  string last_run_date = 3; // ISO date of most recent result
+}
+
 message CaseGitCommit {
   string sha = 1;
   string author = 2;

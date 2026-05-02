@@ -718,6 +718,8 @@ message GetRunTrendMetricsResponse {
   repeated RunTrendPoint points = 1;
   RunCompletionFunnel funnel = 2;
   repeated FlakyCaseSummary flaky_cases = 3;
+  repeated TrendCaseSummary improved_cases = 4;   // cases with pass streak after recent failure
+  repeated TrendCaseSummary regressed_cases = 5;  // cases with fail streak after recent pass
 }
 
 message GetAffectedCasesRequest {
