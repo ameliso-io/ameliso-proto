@@ -144,6 +144,9 @@ message CoverageEntry {
   int64 duration_ms = 7;
   // Error category from the latest result (e.g. "assertion", "timeout", "crash"). Empty when not set.
   string error_type = 8;
+  // The last 8 result statuses for this case, ordered most recent first.
+  // Used for sparkline display. Empty when fewer than 2 results exist.
+  repeated ResultStatus recent_statuses = 9;
 }
 
 message AffectedCase {
