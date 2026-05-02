@@ -122,7 +122,7 @@ message CaseResult {
   string error_type = 6;
   // ID of the testing strategy used to execute this case. Empty when not recorded.
   string strategy_id = 7;
-  // Identity of the user who recorded this result (Auth0 user UUID or empty).
+  // User name who recorded this result. Empty when not recorded.
   string recorded_by = 8;
 }
 

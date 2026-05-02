@@ -534,6 +534,8 @@ message RecordResultRequest {
   // When true, skip prerequisite blocking check. Allows recording a result even
   // if prerequisite cases have not yet passed in the current run.
   bool skip_prerequisite_check = 9;
+  // Name of the tester recording this result. Empty means anonymous.
+  string recorded_by = 10;
 }
 
 message RecordResultResponse {
@@ -567,6 +569,8 @@ message BulkRecordResultsRequest {
   // an empty success response on any subsequent call with the same (repo_id, key) pair
   // within 24 hours. Prevents duplicate result recording on retried requests.
   string idempotency_key = 4;
+  // Name of the tester recording these results. Applied to all entries.
+  string recorded_by = 5;
 }
 
 message BulkRecordResultsResponse {
