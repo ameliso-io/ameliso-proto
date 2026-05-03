@@ -317,3 +317,4 @@ message RunCompletionFunnel {
   int32 blocked = 5;
   int32 skipped = 6;
 }
+

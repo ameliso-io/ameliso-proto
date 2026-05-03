@@ -156,6 +156,9 @@ service AmelisoService {
   // Lets the web UI render the signed-in user's info and pre-fill audit-log
   // "my actions" filters without exposing the raw token.
   rpc WhoAmI(WhoAmIRequest) returns (WhoAmIResponse);
+
+  // Amend notes on a finalized (completed or aborted) run result inline.
+  rpc UpdateResultNotes(UpdateResultNotesRequest) returns (UpdateResultNotesResponse);
 }
 
 // --- Cases ---
@@ -1086,3 +1089,16 @@ message RetryWebhookDeliveryRequest {
   string delivery_id = 3;
 }
 message RetryWebhookDeliveryResponse { OutboundWebhookDelivery delivery = 1; }
+
+// --- Result Notes ---
+
+message UpdateResultNotesRequest {
+  string repo_id = 1;
+  string run_id = 2;
+  string case_path = 3;
+  string notes = 4;
+}
+
+message UpdateResultNotesResponse {
+  CaseResult result = 1;
+}
