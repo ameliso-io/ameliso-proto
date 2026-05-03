@@ -109,6 +109,8 @@ message RunMeta {
   int32 pr_number = 17;
   SyncStatus sync_status = 18;
   string last_sync_error = 19;
+  // Sum of all result duration_ms values for this run. 0 when not computed or no durations recorded.
+  int64 total_duration_ms = 20;
 }
 
 message CaseResult {
