@@ -993,6 +993,7 @@ message CreateRunTemplateRequest {
   repeated string suite_ids = 5;
   string default_strategy_id = 6;
   repeated string tags = 7;
+  repeated string case_paths = 8;
 }
 message CreateRunTemplateResponse { RunTemplate template = 1; }
 message UpdateRunTemplateRequest {
@@ -1003,6 +1004,7 @@ message UpdateRunTemplateRequest {
   repeated string suite_ids = 5;
   string default_strategy_id = 6;
   repeated string tags = 7;
+  repeated string case_paths = 8;
 }
 message UpdateRunTemplateResponse { RunTemplate template = 1; }
 message DeleteRunTemplateRequest { string repo_id = 1; string template_id = 2; }

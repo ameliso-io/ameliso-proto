@@ -53,6 +53,7 @@ message RunTemplate {
   repeated string tags = 6;
   string created_at = 7;
   string updated_at = 8;
+  repeated string case_paths = 9;
 }
 
 message RepoPermission {
