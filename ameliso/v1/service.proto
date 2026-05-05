@@ -325,6 +325,7 @@ message BulkUpdateEntry {
   repeated string tags = 4;
   Priority priority = 5;
   string body = 6;
+  optional bool ai_runnable = 7;
 }
 
 message BulkUpdateCasesRequest {
