@@ -138,6 +138,7 @@ service AmelisoService {
   rpc CreateRunTemplate(CreateRunTemplateRequest) returns (CreateRunTemplateResponse);
   rpc UpdateRunTemplate(UpdateRunTemplateRequest) returns (UpdateRunTemplateResponse);
   rpc DeleteRunTemplate(DeleteRunTemplateRequest) returns (DeleteRunTemplateResponse);
+  rpc RestoreRunTemplate(RestoreRunTemplateRequest) returns (RestoreRunTemplateResponse);
 
   // --- Outbound Webhooks ---
   rpc ListOutboundWebhooks(ListOutboundWebhooksRequest) returns (ListOutboundWebhooksResponse);
@@ -984,7 +985,10 @@ message RestoreStrategyResponse {}
 
 // --- Run Templates ---
 
-message ListRunTemplatesRequest { string repo_id = 1; }
+message ListRunTemplatesRequest {
+  string repo_id = 1;
+  bool include_deleted = 2;
+}
 message ListRunTemplatesResponse { repeated RunTemplate templates = 1; }
 message GetRunTemplateRequest { string repo_id = 1; string template_id = 2; }
 message GetRunTemplateResponse { RunTemplate template = 1; }
@@ -1012,6 +1016,11 @@ message UpdateRunTemplateRequest {
 message UpdateRunTemplateResponse { RunTemplate template = 1; }
 message DeleteRunTemplateRequest { string repo_id = 1; string template_id = 2; }
 message DeleteRunTemplateResponse {}
+message RestoreRunTemplateRequest {
+  string repo_id = 1;
+  string template_id = 2;
+}
+message RestoreRunTemplateResponse {}
 
 // --- Permissions ---
 
