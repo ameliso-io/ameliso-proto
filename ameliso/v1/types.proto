@@ -269,6 +269,11 @@ message CaseGitCommit {
   string author = 2;
   string date = 3;
   string message = 4;
+  string snapshot_title = 5;
+  string snapshot_description = 6;
+  repeated string snapshot_tags = 7;
+  string snapshot_priority = 8;
+  string snapshot_body = 9;
 }
 
 message RunTrendMetric {
