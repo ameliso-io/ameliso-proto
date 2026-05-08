@@ -160,6 +160,10 @@ service AmelisoService {
 
   // Amend notes on a finalized (completed or aborted) run result inline.
   rpc UpdateResultNotes(UpdateResultNotesRequest) returns (UpdateResultNotesResponse);
+
+  // --- Adapter Config ---
+  rpc GetAdapterConfig(GetAdapterConfigRequest) returns (GetAdapterConfigResponse);
+  rpc SetAdapterConfig(SetAdapterConfigRequest) returns (SetAdapterConfigResponse);
 }
 
 // --- Cases ---
@@ -1111,4 +1115,25 @@ message UpdateResultNotesRequest {
 
 message UpdateResultNotesResponse {
   CaseResult result = 1;
+}
+
+// --- Adapter Config ---
+
+message GetAdapterConfigRequest { string repo_id = 1; }
+message GetAdapterConfigResponse {
+  string adapter_kind = 1;          // e.g. "github" or "testmo"
+  string testmo_project_id = 2;     // empty when adapter_kind != "testmo"
+  string testmo_api_token_hint = 3; // last-4 chars of token, e.g. "…cret"; empty when not set
+}
+
+message SetAdapterConfigRequest {
+  string repo_id = 1;
+  string adapter_kind = 2;          // "github" or "testmo"
+  string testmo_project_id = 3;     // required when adapter_kind == "testmo"
+  string testmo_api_token = 4;      // full token; only stored, never returned
+}
+message SetAdapterConfigResponse {
+  string adapter_kind = 1;
+  string testmo_project_id = 2;
+  string testmo_api_token_hint = 3;
 }
