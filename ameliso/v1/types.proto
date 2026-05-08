@@ -112,6 +112,8 @@ message RunMeta {
   string last_sync_error = 19;
   // Sum of all result duration_ms values for this run. 0 when not computed or no durations recorded.
   int64 total_duration_ms = 20;
+  // True when this run was delegated to an AI agent via worktree.io.
+  bool is_ai_run = 21;
 }
 
 message CaseResult {

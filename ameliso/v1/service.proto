@@ -513,6 +513,9 @@ message CreateRunRequest {
   string strategy_id = 12;
   // GitHub pull request number to associate with this run. 0 when not set.
   int32 pr_number = 13;
+  // When true, server delegates execution to worktree.io instead of waiting for a human tester.
+  // Requires WORKTREE_IO_WEBHOOK_URL to be set on the server.
+  bool ai_delegate = 14;
 }
 
 message CreateRunResponse {
