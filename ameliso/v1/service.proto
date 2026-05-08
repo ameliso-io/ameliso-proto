@@ -455,6 +455,8 @@ message ListRunsRequest {
   string assignee_id = 6;
   // Optional sync-status filter. UNSPECIFIED returns all.
   SyncStatus sync_status_filter = 7;
+  // When non-empty, only return runs with this environment tag (case-insensitive exact match).
+  string environment_filter = 8;
 }
 
 message ListRunsResponse {
