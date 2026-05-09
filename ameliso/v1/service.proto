@@ -640,11 +640,10 @@ message GetPendingCasesRequest {
 }
 
 // A pending test case with status — for agent-friendly GetPendingCases and CreateRun.
-// case.body is always populated; the top-level body field is deprecated.
 message PendingEntry {
   Case case = 1;
-  // Deprecated: use case.body instead (Case.body is now always populated).
-  string body = 2;
+  reserved 2;
+  reserved "body";
   ResultStatus latest_status = 3;
   // True when at least one of this case's prerequisites has a latest_status
   // of FAILED or BLOCKED in the same run scope. Agents should skip or defer
@@ -656,11 +655,9 @@ message PendingEntry {
 }
 
 message GetPendingCasesResponse {
-  // Deprecated: use pending instead — it includes body and latest_status.
-  repeated Case cases = 1;
+  reserved 1, 3;
+  reserved "cases", "entries";
   int32 total_in_scope = 2;
-  // Deprecated: use pending instead — PendingEntry already has latest_status.
-  repeated CoverageEntry entries = 3;
   // Preferred: full pending case data — case metadata (with body) + latest_status.
   // Sorted failed/never first then by case priority.
   repeated PendingEntry pending = 4;
