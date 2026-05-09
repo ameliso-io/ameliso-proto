@@ -1126,19 +1126,30 @@ message UpdateResultNotesResponse {
 
 message GetAdapterConfigRequest { string repo_id = 1; }
 message GetAdapterConfigResponse {
-  string adapter_kind = 1;          // e.g. "github" or "testmo"
-  string testmo_project_id = 2;     // empty when adapter_kind != "testmo"
-  string testmo_api_token_hint = 3; // last-4 chars of token, e.g. "…cret"; empty when not set
+  string adapter_kind = 1;            // e.g. "github", "testmo", or "gitlab"
+  string testmo_project_id = 2;       // empty when adapter_kind != "testmo"
+  string testmo_api_token_hint = 3;   // last-4 chars of token, e.g. "…cret"; empty when not set
+  string gitlab_base_url = 4;         // empty when adapter_kind != "gitlab"
+  string gitlab_project_path = 5;     // empty when adapter_kind != "gitlab"
+  string gitlab_access_token_hint = 6; // last-4 chars of token; empty when not set
 }
 
 message SetAdapterConfigRequest {
   string repo_id = 1;
-  string adapter_kind = 2;          // "github" or "testmo"
+  // adapter_kind must be one of: "github", "testmo", "gitlab"
+  string adapter_kind = 2;
   string testmo_project_id = 3;     // required when adapter_kind == "testmo"
   string testmo_api_token = 4;      // full token; only stored, never returned
+  string gitlab_base_url = 5;       // required when adapter_kind == "gitlab"
+  string gitlab_project_path = 6;   // required when adapter_kind == "gitlab"
+  string gitlab_access_token = 7;   // full token; only stored, never returned
+  string gitlab_branch = 8;         // optional; defaults to "main" when empty
 }
 message SetAdapterConfigResponse {
   string adapter_kind = 1;
   string testmo_project_id = 2;
   string testmo_api_token_hint = 3;
+  string gitlab_base_url = 4;
+  string gitlab_project_path = 5;
+  string gitlab_access_token_hint = 6;
 }
