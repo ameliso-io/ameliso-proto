@@ -682,6 +682,10 @@ message UpdateRunRequest {
   repeated string add_cases = 7;
   // Optional free-text description update. When set, replaces the existing description.
   optional string description = 8;
+  // Remove case paths from the run's inline case scope.
+  // Only valid for inline-scoped runs.
+  // Idempotent — case paths not currently in scope are ignored.
+  repeated string remove_cases = 9;
 }
 
 message UpdateRunResponse {
