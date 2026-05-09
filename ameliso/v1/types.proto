@@ -114,6 +114,8 @@ message RunMeta {
   int64 total_duration_ms = 20;
   // True when this run was delegated to an AI agent via worktree.io.
   bool is_ai_run = 21;
+  // Average per-result duration in milliseconds across all results with non-zero duration. 0 when no results have duration recorded.
+  int64 avg_duration_ms = 22;
 }
 
 message CaseResult {
