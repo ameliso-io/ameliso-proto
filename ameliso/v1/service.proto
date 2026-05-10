@@ -534,6 +534,10 @@ message CreateRunResponse {
   // new cases to create without a separate GetAffectedCases call.
   // Empty when the run is not scoped by a diff (suite, inline cases, or all cases).
   repeated string uncovered_files = 5;
+  // True if the AI agent was successfully notified to begin execution.
+  bool delegated = 6;
+  // Non-empty when delegation was attempted but failed (informational; run still created).
+  string delegation_error = 7;
 }
 
 message RecordResultRequest {
@@ -806,6 +810,8 @@ message GetRepoStatusResponse {
   repeated SuiteCoverageSummary suite_coverage = 18;
   // Cases with ≥1 pass/fail flip across their recorded runs, sorted by flip_count desc.
   repeated FlakyCaseSummary flaky_cases = 19;
+  // True when WORKTREE_IO_WEBHOOK_URL is configured — AI delegation is available.
+  bool ai_delegation_available = 20;
 }
 
 message CompareRunsRequest {
