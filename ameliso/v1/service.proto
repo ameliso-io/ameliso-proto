@@ -79,6 +79,9 @@ service AmelisoService {
   // Atomically claim a run for the authenticated user. Only succeeds when the run is
   // unclaimed or already claimed by the same user. Returns the updated run metadata.
   rpc ClaimRun(ClaimRunRequest) returns (ClaimRunResponse);
+  // Delegate specific (or all pending) cases of an existing run to a worktree.io AI agent.
+  // Requires WORKTREE_IO_WEBHOOK_URL to be set on the server.
+  rpc DelegateCases(DelegateCasesRequest) returns (DelegateCasesResponse);
 
   // --- Reports ---
   // Coverage for all cases; sorted failed/never first then by priority. Optional status_filter.
@@ -184,6 +187,12 @@ message ListCasesRequest {
   string status = 9;
   // Optional sync-status filter. UNSPECIFIED returns all.
   SyncStatus sync_status_filter = 10;
+  // When true, return only cases whose latest result is FAILED or BLOCKED.
+  bool failing_only = 11;
+  // When true, return only cases whose latest result is NEVER (never run).
+  bool never_run_only = 12;
+  // Optional exact result-status filter. UNSPECIFIED returns all. Mutually exclusive with failing_only/never_run_only.
+  ResultStatus result_status_filter = 13;
 }
 
 message ListCasesResponse {
@@ -1171,4 +1180,20 @@ message SetAdapterConfigResponse {
   string gitlab_base_url = 4;
   string gitlab_project_path = 5;
   string gitlab_access_token_hint = 6;
+}
+
+message DelegateCasesRequest {
+  string repo_id = 1;
+  string run_id = 2;
+  // If empty, delegate all pending cases.
+  repeated string case_ids = 3;
+}
+
+message DelegateCasesResponse {
+  // Whether delegation to worktree.io succeeded.
+  bool delegated = 1;
+  // Error message if delegation failed (empty on success).
+  string delegation_error = 2;
+  // Count of cases delegated.
+  int32 case_count = 3;
 }
