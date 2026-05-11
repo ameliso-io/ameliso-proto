@@ -624,6 +624,8 @@ message FinalizeRunResponse {
   // All results for the finalized run — avoids a separate GetRun call when agents
   // need to inspect which cases failed or were blocked.
   repeated CaseResult results = 2;
+  // Non-empty when the run was auto-aborted; contains the path of the first failing case.
+  string abort_reason = 3;
 }
 
 message DeleteRunRequest {
