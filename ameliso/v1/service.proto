@@ -54,6 +54,7 @@ service AmelisoService {
   rpc DeleteCase(DeleteCaseRequest) returns (DeleteCaseResponse);
   rpc BulkDeleteCases(BulkDeleteCasesRequest) returns (BulkDeleteCasesResponse);
   rpc RestoreCase(RestoreCaseRequest) returns (RestoreCaseResponse);
+  rpc BulkRestoreCases(BulkRestoreCasesRequest) returns (BulkRestoreCasesResponse);
 
   // --- Suites ---
   rpc ListSuites(ListSuitesRequest) returns (ListSuitesResponse);
@@ -367,6 +368,13 @@ message RestoreCaseRequest {
 }
 
 message RestoreCaseResponse {}
+
+message BulkRestoreCasesRequest {
+  string repo_id = 1;
+  repeated string case_paths = 2;
+}
+
+message BulkRestoreCasesResponse {}
 
 // --- Suites ---
 
