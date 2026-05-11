@@ -125,13 +125,13 @@ service AmelisoService {
   // Append-only log of destructive actions (delete case/run/suite).
   rpc ListAuditLog(ListAuditLogRequest) returns (ListAuditLogResponse);
 
-  // --- Testing Strategies ---
-  rpc ListStrategies(ListStrategiesRequest) returns (ListStrategiesResponse);
-  rpc GetStrategy(GetStrategyRequest) returns (GetStrategyResponse);
-  rpc CreateStrategy(CreateStrategyRequest) returns (CreateStrategyResponse);
-  rpc UpdateStrategy(UpdateStrategyRequest) returns (UpdateStrategyResponse);
-  rpc DeleteStrategy(DeleteStrategyRequest) returns (DeleteStrategyResponse);
-  rpc RestoreStrategy(RestoreStrategyRequest) returns (RestoreStrategyResponse);
+  // --- Testing Skills ---
+  rpc ListSkills(ListSkillsRequest) returns (ListSkillsResponse);
+  rpc GetSkill(GetSkillRequest) returns (GetSkillResponse);
+  rpc CreateSkill(CreateSkillRequest) returns (CreateSkillResponse);
+  rpc UpdateSkill(UpdateSkillRequest) returns (UpdateSkillResponse);
+  rpc DeleteSkill(DeleteSkillRequest) returns (DeleteSkillResponse);
+  rpc RestoreSkill(RestoreSkillRequest) returns (RestoreSkillResponse);
 
   // --- Run Templates ---
   rpc ListRunTemplates(ListRunTemplatesRequest) returns (ListRunTemplatesResponse);
@@ -249,7 +249,7 @@ message CreateCaseRequest {
   repeated string tags = 5;
   Priority priority = 6;
   string body = 7;
-  repeated string strategy_ids = 8;
+  repeated string skill_ids = 8;
   bool ai_runnable = 9;
   // Lifecycle status: "draft" or "published". Defaults to "published" when empty.
   string status = 10;
@@ -305,9 +305,9 @@ message UpdateCaseRequest {
   // When non-empty, rename the case to this path. Must be unique within the repo.
   // Also updates any suites that reference the old path.
   string new_path = 8;
-  // When non-empty, set the case's linked strategy IDs to exactly this list.
-  // If empty (proto3 default), strategies are left unchanged.
-  repeated string strategy_ids = 9;
+  // When non-empty, set the case's linked skill IDs to exactly this list.
+  // If empty (proto3 default), skills are left unchanged.
+  repeated string skill_ids = 9;
   // Optional override for ai_runnable. Uses existing value if not set.
   optional bool ai_runnable = 10;
   // When `set_prerequisites` is true, replace the case's prerequisite list
@@ -427,8 +427,8 @@ message UpdateSuiteRequest {
   bool replace_cases = 6;
   // When non-empty, rename the suite to this slug. Must be unique within the repo.
   string new_slug = 7;
-  // When non-empty, set the suite's default testing strategy.
-  string default_strategy_id = 8;
+  // When non-empty, set the suite's default testing skill.
+  string default_skill_id = 8;
 }
 
 message UpdateSuiteResponse {
@@ -519,8 +519,8 @@ message CreateRunRequest {
   bool use_last_run = 10;
   // Optional free-text description for retrospective context (e.g. "Pre-release smoke test for v2.3").
   string description = 11;
-  // Optional testing strategy ID to associate with this run.
-  string strategy_id = 12;
+  // Optional testing skill ID to associate with this run.
+  string skill_id = 12;
   // GitHub pull request number to associate with this run. 0 when not set.
   int32 pr_number = 13;
   // When true, server delegates execution to worktree.io instead of waiting for a human tester.
@@ -558,8 +558,8 @@ message RecordResultRequest {
   int64 duration_ms = 6;
   // Free-form failure category (e.g. "assertion", "timeout", "crash"). Empty when not set.
   string error_type = 7;
-  // ID of the testing strategy used to execute this case. Empty when not set.
-  string strategy_id = 8;
+  // ID of the testing skill used to execute this case. Empty when not set.
+  string skill_id = 8;
   // When true, skip prerequisite blocking check. Allows recording a result even
   // if prerequisite cases have not yet passed in the current run.
   bool skip_prerequisite_check = 9;
@@ -584,8 +584,8 @@ message BulkResultEntry {
   int64 duration_ms = 4;
   // Free-form failure category (e.g. "assertion", "timeout", "crash"). Empty when not set.
   string error_type = 5;
-  // ID of the testing strategy used to execute this case. Empty when not set.
-  string strategy_id = 6;
+  // ID of the testing skill used to execute this case. Empty when not set.
+  string skill_id = 6;
   // When true, skip prerequisite blocking check for this specific entry.
   bool skip_prerequisite_check = 7;
 }
@@ -809,7 +809,7 @@ message GetRepoStatusResponse {
   // Most recently completed run — commit_sha can be passed as since_ref to GetAffectedCases
   // without a separate ListRuns call.
   RunMeta last_completed_run = 13;
-  int32 strategy_count = 14;
+  int32 skill_count = 14;
   // Last 10 distinct non-empty environment values, most recent first.
   repeated string recent_environments = 15;
   // Number of consecutive GitHub sync failures for this repo since last success.
@@ -971,46 +971,46 @@ message ListAuditLogResponse {
   string next_page_token = 2;
 }
 
-// --- Testing Strategies ---
+// --- Testing Skills ---
 
-message ListStrategiesRequest {
+message ListSkillsRequest {
   string repo_id = 1;
-  // Optional free-text search against strategy name (case-insensitive substring match).
+  // Optional free-text search against skill name (case-insensitive substring match).
   string query = 2;
   // 0 = return all (default, backward-compatible)
   int32 page_size = 3;
   string page_token = 4;
 }
-message ListStrategiesResponse {
-  repeated TestingStrategy strategies = 1;
+message ListSkillsResponse {
+  repeated TestingSkill skills = 1;
   string next_page_token = 2;
   int32 total_count = 3;
 }
-message GetStrategyRequest { string repo_id = 1; string strategy_id = 2; }
-message GetStrategyResponse { TestingStrategy strategy = 1; }
-message CreateStrategyRequest {
+message GetSkillRequest { string repo_id = 1; string skill_id = 2; }
+message GetSkillResponse { TestingSkill skill = 1; }
+message CreateSkillRequest {
   string repo_id = 1;
-  string strategy_id = 2;
+  string skill_id = 2;
   string name = 3;
   string description = 4;
   repeated string tags = 5;
   string execution_hints = 6;
 }
-message CreateStrategyResponse { TestingStrategy strategy = 1; }
-message UpdateStrategyRequest {
+message CreateSkillResponse { TestingSkill skill = 1; }
+message UpdateSkillRequest {
   string repo_id = 1;
-  string strategy_id = 2;
+  string skill_id = 2;
   string name = 3;
   string description = 4;
   repeated string tags = 5;
   string new_id = 6;
   string execution_hints = 7;
 }
-message UpdateStrategyResponse { TestingStrategy strategy = 1; }
-message DeleteStrategyRequest { string repo_id = 1; string strategy_id = 2; }
-message DeleteStrategyResponse {}
-message RestoreStrategyRequest { string repo_id = 1; string strategy_id = 2; }
-message RestoreStrategyResponse {}
+message UpdateSkillResponse { TestingSkill skill = 1; }
+message DeleteSkillRequest { string repo_id = 1; string skill_id = 2; }
+message DeleteSkillResponse {}
+message RestoreSkillRequest { string repo_id = 1; string skill_id = 2; }
+message RestoreSkillResponse {}
 
 // --- Run Templates ---
 
@@ -1027,7 +1027,7 @@ message CreateRunTemplateRequest {
   string title = 3;
   string description = 4;
   repeated string suite_ids = 5;
-  string default_strategy_id = 6;
+  string default_skill_id = 6;
   repeated string tags = 7;
   repeated string case_paths = 8;
 }
@@ -1038,7 +1038,7 @@ message UpdateRunTemplateRequest {
   string title = 3;
   string description = 4;
   repeated string suite_ids = 5;
-  string default_strategy_id = 6;
+  string default_skill_id = 6;
   repeated string tags = 7;
   repeated string case_paths = 8;
 }

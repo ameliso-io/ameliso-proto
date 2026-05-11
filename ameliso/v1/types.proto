@@ -15,8 +15,8 @@ message Case {
   // Markdown body — the actual test procedure/steps. Populated when the caller
   // needs full case content (e.g. ListCases, GetCase, GetPendingCases).
   string body = 8;
-  // IDs of testing strategies linked to this case.
-  repeated string strategy_ids = 9;
+  // IDs of testing skills linked to this case.
+  repeated string skill_ids = 9;
   // When true, this case can be executed and validated by an AI agent.
   bool ai_runnable = 10;
   // Case slugs that must pass before this case is run. Used to model test
@@ -33,7 +33,7 @@ message Case {
   string last_sync_error = 16;
 }
 
-message TestingStrategy {
+message TestingSkill {
   string id = 1;
   string name = 2;
   string description = 3;
@@ -49,7 +49,7 @@ message RunTemplate {
   string title = 2;
   string description = 3;
   repeated string suite_ids = 4;
-  string default_strategy_id = 5;
+  string default_skill_id = 5;
   repeated string tags = 6;
   string created_at = 7;
   string updated_at = 8;
@@ -75,8 +75,8 @@ message Suite {
   string name = 2;
   string description = 3;
   repeated string cases = 4;
-  // Default testing strategy applied when starting a run from this suite.
-  string default_strategy_id = 5;
+  // Default testing skill applied when starting a run from this suite.
+  string default_skill_id = 5;
   SyncStatus sync_status = 6;
   string last_sync_error = 7;
 }
@@ -104,8 +104,8 @@ message RunMeta {
   string formatted_date = 14;
   // User UUID of the agent or user who claimed this run; empty when unclaimed.
   string assignee_id = 15;
-  // ID of the testing strategy used for this run. Empty when not set.
-  string strategy_id = 16;
+  // ID of the testing skill used for this run. Empty when not set.
+  string skill_id = 16;
   // GitHub pull request number associated with this run. 0 when not set.
   int32 pr_number = 17;
   SyncStatus sync_status = 18;
@@ -128,8 +128,8 @@ message CaseResult {
   int64 duration_ms = 5;
   // Free-form failure category (e.g. "assertion", "timeout", "crash"). Empty when not set.
   string error_type = 6;
-  // ID of the testing strategy used to execute this case. Empty when not recorded.
-  string strategy_id = 7;
+  // ID of the testing skill used to execute this case. Empty when not recorded.
+  string skill_id = 7;
   // User name who recorded this result. Empty when not recorded.
   string recorded_by = 8;
 }
@@ -201,7 +201,7 @@ enum SyncStatus {
 message AuditEntry {
   int64 id = 1;
   string action = 2;        // "create" | "delete" | "restore"
-  string resource_type = 3; // "case", "run", "suite", "strategy"
+  string resource_type = 3; // "case", "run", "suite", "skill"
   string resource_id = 4;   // case_path, run_id, or slug
   string created_at = 5;    // ISO-8601 timestamp
   // Server-formatted relative timestamp (e.g. "2h ago", "3 days ago", "Apr 25, 2026").
