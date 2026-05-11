@@ -55,6 +55,7 @@ message RunTemplate {
   string updated_at = 8;
   repeated string case_paths = 9;
   string deleted_at = 10;
+  string default_environment = 11;
 }
 
 message RepoPermission {
