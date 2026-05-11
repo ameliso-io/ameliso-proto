@@ -187,6 +187,12 @@ message ListCasesRequest {
   string status = 9;
   // Optional sync-status filter. UNSPECIFIED returns all.
   SyncStatus sync_status_filter = 10;
+  // When true, return only cases whose latest result is FAILED or BLOCKED.
+  bool failing_only = 11;
+  // When true, return only cases whose latest result is NEVER (never run).
+  bool never_run_only = 12;
+  // Optional exact result-status filter. UNSPECIFIED returns all. Mutually exclusive with failing_only/never_run_only.
+  ResultStatus result_status_filter = 13;
 }
 
 message ListCasesResponse {
