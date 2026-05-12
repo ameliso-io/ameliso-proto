@@ -276,6 +276,7 @@ message BulkCaseEntry {
   repeated string tags = 4;
   Priority priority = 5;
   string body = 6;
+  repeated string skill_ids = 7;
 }
 
 message BulkCreateCasesRequest {
