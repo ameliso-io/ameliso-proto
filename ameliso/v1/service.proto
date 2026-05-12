@@ -342,6 +342,7 @@ message BulkUpdateEntry {
   Priority priority = 5;
   string body = 6;
   optional bool ai_runnable = 7;
+  repeated string skill_ids = 8;
 }
 
 message BulkUpdateCasesRequest {
