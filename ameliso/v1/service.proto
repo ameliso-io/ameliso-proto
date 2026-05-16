@@ -747,6 +747,11 @@ message GetCoverageReportRequest {
 message GetCoverageReportResponse {
   repeated CoverageEntry entries = 1;
   int32 run_count = 2;
+  // Summary counts across all cases before any filter is applied.
+  int32 total_cases = 3;
+  int32 covered_cases = 4;
+  // covered_cases / total_cases * 100, rounded to nearest integer. 0 when total_cases is 0.
+  int32 coverage_percent = 5;
 }
 
 message GetRunTrendMetricsRequest {
