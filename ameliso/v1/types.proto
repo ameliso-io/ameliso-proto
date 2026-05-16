@@ -248,6 +248,8 @@ message Repository {
   string last_failure_at = 12;
   // Human-readable reason for the last failure, or empty when healthy.
   string last_failure_reason = 13;
+  // User-configured working branch. Empty means "use the repository's default branch".
+  string working_branch = 14;
 }
 
 message SuiteCoverageSummary {
