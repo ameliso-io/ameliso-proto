@@ -82,6 +82,8 @@ service AmelisoService {
   // Delegate specific (or all pending) cases of an existing run to a worktree.io AI agent.
   // Requires WORKTREE_IO_WEBHOOK_URL to be set on the server.
   rpc DelegateCases(DelegateCasesRequest) returns (DelegateCasesResponse);
+  // Export a completed run as JUnit XML. Useful for feeding results into CI dashboards.
+  rpc GetRunExport(GetRunExportRequest) returns (GetRunExportResponse);
 
   // --- Reports ---
   // Coverage for all cases; sorted failed/never first then by priority. Optional status_filter.
@@ -1227,4 +1229,18 @@ message DelegateCasesResponse {
   int32 case_count = 3;
   // Paths of cases skipped because ai_runnable is false.
   repeated string skipped_case_paths = 4;
+}
+
+message GetRunExportRequest {
+  string repo_id = 1;
+  string run_id = 2;
+}
+
+message GetRunExportResponse {
+  // JUnit XML content as a UTF-8 string.
+  string content = 1;
+  // MIME type of the content (e.g. "application/xml").
+  string content_type = 2;
+  // Suggested filename for the download (e.g. "2026-01-01-smoke.xml").
+  string filename = 3;
 }
