@@ -1220,4 +1220,6 @@ message DelegateCasesResponse {
   string delegation_error = 2;
   // Count of cases delegated.
   int32 case_count = 3;
+  // Paths of cases skipped because ai_runnable is false.
+  repeated string skipped_case_paths = 4;
 }
