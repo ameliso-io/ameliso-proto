@@ -345,6 +345,8 @@ message BulkUpdateEntry {
   string body = 6;
   optional bool ai_runnable = 7;
   repeated string skill_ids = 8;
+  // Optional lifecycle-status override ("draft" or "published"). Empty leaves status unchanged.
+  string status = 9;
 }
 
 message BulkUpdateCasesRequest {
