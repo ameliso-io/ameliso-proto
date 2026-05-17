@@ -844,6 +844,8 @@ message GetRepoStatusResponse {
   repeated FlakyCaseSummary flaky_cases = 19;
   // True when WORKTREE_IO_WEBHOOK_URL is configured — AI delegation is available.
   bool ai_delegation_available = 20;
+  // ISO-8601 timestamp of the most recent GitHub sync failure, empty when healthy.
+  string last_sync_error_at = 21;
 }
 
 message CompareRunsRequest {
