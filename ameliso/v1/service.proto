@@ -543,6 +543,8 @@ message CreateRunRequest {
   // When true, server delegates execution to worktree.io instead of waiting for a human tester.
   // Requires WORKTREE_IO_WEBHOOK_URL to be set on the server.
   bool ai_delegate = 14;
+  // Optional ID of the run template used to create this run. Stored for audit/display purposes.
+  string template_id = 15;
 }
 
 message CreateRunResponse {
