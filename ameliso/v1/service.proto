@@ -563,6 +563,9 @@ message CreateRunResponse {
   bool delegated = 6;
   // Non-empty when delegation was attempted but failed (informational; run still created).
   string delegation_error = 7;
+  // Case paths referenced as prerequisites that do not exist in the repo.
+  // Non-empty means the run was created but some prerequisites are dangling.
+  repeated string missing_prerequisite_warnings = 8;
 }
 
 message RecordResultRequest {
