@@ -348,8 +348,6 @@ message BulkUpdateEntry {
   string body = 6;
   optional bool ai_runnable = 7;
   repeated string skill_ids = 8;
-  // Optional lifecycle-status override ("draft" or "published"). Empty leaves status unchanged.
-  string status = 9;
 }
 
 message BulkUpdateCasesRequest {
@@ -484,6 +482,8 @@ message ListRunsRequest {
   SyncStatus sync_status_filter = 7;
   // When non-empty, only return runs with this environment tag (case-insensitive exact match).
   string environment_filter = 8;
+  // When non-empty, only return runs with this label (case-insensitive exact match).
+  string label_filter = 9;
 }
 
 message ListRunsResponse {
@@ -543,6 +543,10 @@ message CreateRunRequest {
   // When true, server delegates execution to worktree.io instead of waiting for a human tester.
   // Requires WORKTREE_IO_WEBHOOK_URL to be set on the server.
   bool ai_delegate = 14;
+  // Optional ID of the run template used to create this run. Stored for audit/display purposes.
+  string template_id = 15;
+  // Optional grouping/filtering label (e.g. "smoke", "nightly"). Empty when not set.
+  string label = 16;
 }
 
 message CreateRunResponse {
@@ -722,6 +726,8 @@ message UpdateRunRequest {
   // Only valid for inline-scoped runs.
   // Idempotent — case paths not currently in scope are ignored.
   repeated string remove_cases = 9;
+  // Optional label update. When set, replaces the existing label (use empty string to clear).
+  optional string label = 10;
 }
 
 message UpdateRunResponse {

@@ -118,6 +118,10 @@ message RunMeta {
   bool is_ai_run = 21;
   // Average per-result duration in milliseconds across all results with non-zero duration. 0 when no results have duration recorded.
   int64 avg_duration_ms = 22;
+  // Display name of the run template used to create this run; empty when no template was used.
+  string template_name = 23;
+  // Optional grouping/filtering label (e.g. "smoke", "nightly"). Empty when not set.
+  string label = 24;
 }
 
 message CaseResult {
